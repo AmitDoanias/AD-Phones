@@ -53,16 +53,17 @@ export default async function RepairsPage() {
       {repairTypes && repairTypes.length > 0 && (
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 mb-6">
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">
-            סוגי תיקון קיימים
+            סוגי תיקון — לחץ לעריכה/מחיקה
           </p>
           <div className="flex flex-wrap gap-2">
             {repairTypes.map((rt) => (
-              <span
+              <Link
                 key={rt.id}
-                className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-medium"
+                href={`/dashboard/repairs/edit-repair-type/${rt.id}`}
+                className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-medium hover:bg-primary hover:text-white transition-colors"
               >
                 {rt.name}
-              </span>
+              </Link>
             ))}
           </div>
         </div>
