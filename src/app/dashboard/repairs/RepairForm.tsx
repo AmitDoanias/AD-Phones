@@ -50,14 +50,16 @@ export default function RepairForm({
   const [error, setError] = useState("");
 
   function toSlug(text: string) {
-    return text
+    // Use timestamp-based slug to support Hebrew names
+    const base = text
       .toLowerCase()
       .replace(/\s+/g, "-")
-      .replace(/[^\w\-]/g, "")
-      .replace(/--+/g, "-");
+      .replace(/[^\w\-]/g, "");
+    const suffix = Date.now().toString(36);
+    return base ? `${base}-${suffix}` : suffix;
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
     setLoading(true);
