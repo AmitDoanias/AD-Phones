@@ -4,12 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X, Wrench } from "lucide-react";
+import { Menu, X, Wrench, ShoppingCart } from "lucide-react";
 import { NAV_LINKS } from "@/constants";
+import { useCart } from "@/hooks/useCart";
 
 export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const { items } = useCart();
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
@@ -34,8 +36,8 @@ export default function Header() {
               href={link.href}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 pathname === link.href
-                  ? "bg-primary text-white"
-                  : "text-slate-600 hover:text-primary hover:bg-slate-100"
+                  ? "bg-[#0071e3] text-white"
+                  : "text-slate-600 hover:text-[#0071e3] hover:bg-slate-100"
               }`}
             >
               {link.label}
@@ -46,22 +48,51 @@ export default function Header() {
         {/* CTA */}
         <div className="hidden md:flex items-center gap-3">
           <Link
+            href="/cart"
+            className="relative p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
+            aria-label="סל קניות"
+          >
+            <ShoppingCart size={20} />
+            {items.length > 0 && (
+              <span className="absolute -top-0.5 -left-0.5 min-w-[18px] h-[18px] flex items-center justify-center rounded-full text-[10px] font-bold text-white"
+                    style={{ background: "#0071e3" }}>
+                {items.length}
+              </span>
+            )}
+          </Link>
+          <Link
             href="/repairs"
-            className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-light transition-colors"
+            className="flex items-center gap-2 text-white px-4 py-2 rounded-[8px] text-sm font-medium transition-opacity hover:opacity-90"
+            style={{ background: "#0071e3" }}
           >
             <Wrench size={16} />
             קבע תור לתיקון
           </Link>
         </div>
 
-        {/* Mobile burger */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
-          aria-label="תפריט"
-        >
-          {open ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        {/* Mobile: cart + burger */}
+        <div className="md:hidden flex items-center gap-1">
+          <Link
+            href="/cart"
+            className="relative p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
+            aria-label="סל קניות"
+          >
+            <ShoppingCart size={20} />
+            {items.length > 0 && (
+              <span className="absolute -top-0.5 -left-0.5 min-w-[18px] h-[18px] flex items-center justify-center rounded-full text-[10px] font-bold text-white"
+                    style={{ background: "#0071e3" }}>
+                {items.length}
+              </span>
+            )}
+          </Link>
+          <button
+            onClick={() => setOpen(!open)}
+            className="p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
+            aria-label="תפריט"
+          >
+            {open ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
@@ -74,7 +105,7 @@ export default function Header() {
               onClick={() => setOpen(false)}
               className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                 pathname === link.href
-                  ? "bg-primary text-white"
+                  ? "bg-[#0071e3] text-white"
                   : "text-slate-700 hover:bg-slate-100"
               }`}
             >
@@ -84,7 +115,8 @@ export default function Header() {
           <Link
             href="/repairs"
             onClick={() => setOpen(false)}
-            className="mt-2 flex items-center justify-center gap-2 bg-primary text-white px-4 py-2.5 rounded-lg text-sm font-medium"
+            className="mt-2 flex items-center justify-center gap-2 text-white px-4 py-2.5 rounded-[8px] text-sm font-medium transition-opacity hover:opacity-90"
+            style={{ background: "#0071e3" }}
           >
             <Wrench size={16} />
             קבע תור לתיקון

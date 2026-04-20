@@ -25,14 +25,26 @@ export default async function NewRepairPage({ searchParams }: Props) {
     .select("id, name")
     .order("name");
 
+  // Build brand → model count map for auto sort_order on new models
+  const { data: allModels } = await supabase
+    .from("models")
+    .select("brand_id");
+
+  const brandModelCounts = (allModels ?? []).reduce<Record<string, number>>((acc, m) => {
+    acc[m.brand_id] = (acc[m.brand_id] ?? 0) + 1;
+    return acc;
+  }, {});
+
   return (
-    <div className="max-w-xl">
-      <h1 className="text-2xl font-bold text-slate-800 mb-6">
-        {type === "brand" && "מותג חדש"}
-        {type === "model" && "דגם חדש"}
-        {type === "repair" && "סוג תיקון חדש"}
-        {type === "model_repair" && "הוספת תיקון לדגם"}
-      </h1>
+    <div className="max-w-xl flex flex-col gap-5">
+      <div>
+        <p className="text-[14px] font-semibold text-slate-800">
+          {type === "brand" && "מותג חדש"}
+          {type === "model" && "דגם חדש"}
+          {type === "repair" && "סוג תיקון חדש"}
+          {type === "model_repair" && "הוספת תיקון לדגם"}
+        </p>
+      </div>
 
       <RepairForm
         type={(type as "brand" | "model" | "repair" | "model_repair") ?? "repair"}
@@ -40,6 +52,7 @@ export default async function NewRepairPage({ searchParams }: Props) {
         models={models ?? []}
         repairTypes={repairTypes ?? []}
         defaultModelId={model_id}
+        brandModelCounts={brandModelCounts}
       />
     </div>
   );

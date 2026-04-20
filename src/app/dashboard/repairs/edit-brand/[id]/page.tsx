@@ -26,7 +26,7 @@ export default async function EditBrandPage({ params }: Props) {
         brands={[]}
         models={[]}
         repairTypes={[]}
-        initial={{ name: brand.name, sort_order: brand.sort_order }}
+        initial={{ name: brand.name, sort_order: brand.sort_order, image_url: brand.icon_url ?? "" }}
         editId={id}
       />
     </div>
