@@ -22,8 +22,6 @@ import {
   Clock,
   MessageCircle,
   ChevronLeft,
-  BookOpen,
-  CalendarDays,
   Star,
 } from "lucide-react";
 
@@ -69,28 +67,6 @@ const SYMBOLS = [
   { src: "/symbols/support.webp", label: "תיקונים למגוון מכשירים" },
 ];
 
-// ── Blog fallback ─────────────────────────────────────────────────────────
-const STATIC_POSTS = [
-  {
-    title: "איך לדעת אם הסוללה של האייפון שלך צריכה החלפה?",
-    slug: "iphone-battery-replacement",
-    excerpt: "5 סימנים שיגידו לך שהגיע הזמן לפנות לתיקון סוללה לפני שהמצב יחמיר.",
-    date: "2024-03-10",
-  },
-  {
-    title: "מסך שבור? הנה כל מה שצריך לדעת לפני התיקון",
-    slug: "broken-screen-guide",
-    excerpt: "סוגי נזקי מסך, מה כדאי לתקן ומה לא, ומה ההבדל בין מסך מקורי לאחר.",
-    date: "2024-02-15",
-  },
-  {
-    title: "סמסונג מול אייפון - מי קל יותר לתיקון?",
-    slug: "samsung-vs-iphone-repair",
-    excerpt: "השוואה מקצועית בין שתי הפלטפורמות מנקודת מבט של טכנאי תיקון סלולר.",
-    date: "2024-01-20",
-  },
-];
-
 export default async function HomePage() {
   const supabase = await createClient();
 
@@ -107,26 +83,6 @@ export default async function HomePage() {
       .order("time", { ascending: false })
       .limit(6);
     if (data && data.length > 0) reviews = data as Review[];
-  } catch {
-    // static fallback
-  }
-
-  let posts = STATIC_POSTS;
-  try {
-    const { data } = await supabase
-      .from("blog_posts")
-      .select("title, slug, excerpt, published_at")
-      .eq("is_published", true)
-      .order("published_at", { ascending: false })
-      .limit(3);
-    if (data && data.length > 0) {
-      posts = data.map((p) => ({
-        title: p.title,
-        slug: p.slug,
-        excerpt: p.excerpt ?? "",
-        date: p.published_at,
-      }));
-    }
   } catch {
     // static fallback
   }
@@ -448,80 +404,7 @@ export default async function HomePage() {
         {/* ── 5. POPULAR REPAIRS (3D) ──────────────────────────────── */}
         <PopularRepairs3D repairTypes={repairTypes as any} />
 
-        {/* ── 6. BLOG ──────────────────────────────────────────────── */}
-        <section className="bg-[#f5f5f7] py-16 px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="flex items-end justify-between mb-10">
-              <div>
-                <h2
-                  className="font-bold mb-1"
-                  style={{
-                    fontSize: "clamp(1.5rem, 4vw, 2.5rem)",
-                    lineHeight: 1.1,
-                    letterSpacing: "-0.28px",
-                    color: "#1d1d1f",
-                  }}
-                >
-                  מהבלוג שלנו
-                </h2>
-                <p className="text-sm" style={{ color: "rgba(0,0,0,0.5)" }}>
-                  מדריכים וטיפים לתחזוקת הסלולר שלך
-                </p>
-              </div>
-              <Link
-                href="/blog"
-                className="flex-shrink-0 text-sm font-medium hover:underline"
-                style={{ color: "#0066cc", letterSpacing: "-0.224px" }}
-              >
-                כל המאמרים ›
-              </Link>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {posts.map((post, i) => (
-                <AnimatedCard key={post.slug} delay={i * 80}>
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="group block bg-white rounded-[8px] overflow-hidden transition-shadow hover:shadow-[rgba(0,0,0,0.12)_0px_4px_20px_0px]"
-                    style={{ boxShadow: "rgba(0,0,0,0.08) 0px 2px 10px 0px" }}
-                  >
-                    <div
-                      className="w-full flex items-center justify-center"
-                      style={{
-                        height: 160,
-                        background: "#f5f5f7",
-                        borderBottom: "1px solid rgba(0,0,0,0.06)",
-                      }}
-                    >
-                      <BookOpen size={32} style={{ color: "rgba(0,0,0,0.18)" }} />
-                    </div>
-                    <div className="p-5">
-                      <p
-                        className="font-semibold mb-2 leading-snug group-hover:text-[#0066cc] transition-colors"
-                        style={{ color: "#1d1d1f", letterSpacing: "0.196px" }}
-                      >
-                        {post.title}
-                      </p>
-                      <p
-                        className="text-xs leading-relaxed mb-3 line-clamp-2"
-                        style={{ color: "rgba(0,0,0,0.55)" }}
-                      >
-                        {post.excerpt}
-                      </p>
-                      <div className="flex items-center gap-1.5 text-xs" style={{ color: "rgba(0,0,0,0.35)" }}>
-                        <CalendarDays size={11} />
-                        {new Date(post.date).toLocaleDateString("he-IL", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        })}
-                      </div>
-                    </div>
-                  </Link>
-                </AnimatedCard>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* ── 6. BLOG (hidden until /blog routes are implemented) ─── */}
 
         {/* ── 7. FAQs ──────────────────────────────────────────────── */}
         <section id="faq" className="bg-[#1d1d1f] py-16 px-4 scroll-mt-20">
