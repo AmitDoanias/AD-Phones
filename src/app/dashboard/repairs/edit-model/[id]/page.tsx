@@ -22,7 +22,7 @@ function DeleteModelButton({ modelId }: { modelId: string }) {
       router.push("/dashboard/repairs");
       router.refresh();
     } catch {
-      alert("שגיאה במחיקה — נסה שוב.");
+      alert("שגיאה במחיקה - נסה שוב.");
       setDeleting(false);
     }
   }

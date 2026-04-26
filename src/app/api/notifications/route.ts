@@ -34,7 +34,7 @@ export async function GET() {
         title: b.customer_name ?? "לקוח",
         subtitle:
           b.total_price != null
-            ? `הזמנה חדשה — ₪${b.total_price.toLocaleString("he-IL")}`
+            ? `הזמנה חדשה - ₪${b.total_price.toLocaleString("he-IL")}`
             : "הזמנה חדשה",
         href: `/dashboard/bookings/${b.id}`,
         created_at: b.created_at,

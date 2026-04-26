@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createAdminClient } from "@/lib/supabase/admin";
+import { createClient } from "@/lib/supabase/server";
 
 export async function POST(req: NextRequest) {
   try {
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "מספר טלפון הוא שדה חובה" }, { status: 400 });
     }
 
-    const supabase = createAdminClient();
+    const supabase = await createClient();
 
     const { error } = await supabase.from("leads").insert({
       source: "contact_form",
@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
 
     if (error) {
       console.error("[contact] db error:", error);
-      return NextResponse.json({ error: "שגיאה בשמירת הפנייה", detail: error.message }, { status: 500 });
+      return NextResponse.json({ error: "שגיאה בשמירת הפנייה" }, { status: 500 });
     }
 
     return NextResponse.json({ success: true }, { status: 201 });

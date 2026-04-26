@@ -337,7 +337,7 @@ export default function RepairTypeModelsManager({ repairTypeId, brands, deviceCa
                 value={bulkPrice}
                 onChange={(e) => setBulkPrice(e.target.value)}
                 className="w-28 px-2 py-1.5 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                placeholder="—"
+                placeholder="-"
                 min="0"
               />
               <span className="text-xs text-slate-400">₪</span>
@@ -351,7 +351,7 @@ export default function RepairTypeModelsManager({ repairTypeId, brands, deviceCa
                 value={bulkDuration}
                 onChange={(e) => setBulkDuration(e.target.value)}
                 className="w-28 px-2 py-1.5 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                placeholder="—"
+                placeholder="-"
                 min="0"
               />
               <span className="text-xs text-slate-400">דק</span>

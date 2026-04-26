@@ -220,7 +220,7 @@ export default function RepairForm({
             ))}
           </div>
           <p className="text-xs text-slate-400">
-            משמש לשיוך הדגם לקטגוריה (iPhone / iPad) — לא יתווסף לשם
+            משמש לשיוך הדגם לקטגוריה (iPhone / iPad) - לא יתווסף לשם
           </p>
         </div>
       )}
@@ -267,7 +267,7 @@ export default function RepairForm({
 
           <div className="flex flex-col gap-1.5">
             <label className="text-sm font-medium text-foreground">
-              כותרת משנה <span className="text-muted-foreground font-normal">(אופציונלי — מוצגת מתחת לכותרת הראשית בדף התיקון)</span>
+              כותרת משנה <span className="text-muted-foreground font-normal">(אופציונלי - מוצגת מתחת לכותרת הראשית בדף התיקון)</span>
             </label>
             <input
               type="text"
@@ -277,13 +277,13 @@ export default function RepairForm({
               className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring placeholder:text-muted-foreground"
             />
             <p className="text-xs text-muted-foreground">
-              שורה קצרה שמופיעה מתחת לכותרת — השתמש ב-• להפרדה בין נקודות.
+              שורה קצרה שמופיעה מתחת לכותרת - השתמש ב-• להפרדה בין נקודות.
             </p>
           </div>
 
           <div className="flex flex-col gap-1.5">
             <label className="text-sm font-medium text-foreground">
-              תיאור התיקון <span className="text-muted-foreground font-normal">(אופציונלי — מוצג מתחת למחיר בדף התיקון ובחלונית בדף הבית)</span>
+              תיאור התיקון <span className="text-muted-foreground font-normal">(אופציונלי - מוצג מתחת למחיר בדף התיקון ובחלונית בדף הבית)</span>
             </label>
             <textarea
               value={repairDescription}
@@ -293,7 +293,7 @@ export default function RepairForm({
               className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground text-sm leading-relaxed focus:outline-none focus:ring-2 focus:ring-ring resize-y placeholder:text-muted-foreground"
             />
             <p className="text-xs text-muted-foreground">
-              המלצה: 2-5 שורות. כלול את המקצועיות, זמן השירות, האחריות ואזור השירות — משפר SEO וחוויית לקוח.
+              המלצה: 2-5 שורות. כלול את המקצועיות, זמן השירות, האחריות ואזור השירות - משפר SEO וחוויית לקוח.
             </p>
           </div>
 
@@ -325,14 +325,14 @@ export default function RepairForm({
             label="תמונת הדגם"
             value={imageUrl}
             onChange={setImageUrl}
-            hint="תמונה תופיע בדף הקטלוג ללקוחות — מומלץ תמונת מוצר רשמית"
+            hint="תמונה תופיע בדף הקטלוג ללקוחות - מומלץ תמונת מוצר רשמית"
           />
           <Input
             label="Alt Text (תיאור תמונה)"
             value={altText}
             onChange={(e) => setAltText(e.target.value)}
             placeholder='לדוגמה: "iPhone 16 Pro Max צבע טיטניום"'
-            hint="חשוב לנגישות ו-SEO — תאר את התמונה בקצרה"
+            hint="חשוב לנגישות ו-SEO - תאר את התמונה בקצרה"
           />
           <hr className="border-slate-100" />
           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">SEO</p>
@@ -341,7 +341,7 @@ export default function RepairForm({
             value={seoTitle}
             onChange={(e) => setSeoTitle(e.target.value)}
             placeholder='לדוגמה: "תיקון iPhone 16 Pro Max ברחובות | A&D Phones"'
-            hint="מופיע בכרטיסיית הדפדפן ובגוגל — מקסימום 60 תווים"
+            hint="מופיע בכרטיסיית הדפדפן ובגוגל - מקסימום 60 תווים"
           />
           <div className="flex flex-col gap-1">
             <label className="text-sm font-medium text-foreground">תיאור SEO</label>
@@ -349,11 +349,11 @@ export default function RepairForm({
               value={seoDescription}
               onChange={(e) => setSeoDescription(e.target.value)}
               rows={3}
-              placeholder='לדוגמה: "תיקון iPhone 16 Pro Max ברחובות — החלפת מסך, סוללה, מצלמה. שירות מהיר עם אחריות. 054-772-3281"'
+              placeholder='לדוגמה: "תיקון iPhone 16 Pro Max ברחובות - החלפת מסך, סוללה, מצלמה. שירות מהיר עם אחריות. 054-772-3281"'
               className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none placeholder:text-muted-foreground"
             />
             <p className="text-xs text-muted-foreground">
-              {seoDescription.length}/160 תווים — מופיע בתוצאות החיפוש
+              {seoDescription.length}/160 תווים - מופיע בתוצאות החיפוש
             </p>
           </div>
         </>
@@ -372,7 +372,7 @@ export default function RepairForm({
             label="לוגו / אייקון מותג"
             value={imageUrl}
             onChange={setImageUrl}
-            hint="תמונה תופיע בדף בחירת המותג — מומלץ לוגו רשמי על רקע לבן"
+            hint="תמונה תופיע בדף בחירת המותג - מומלץ לוגו רשמי על רקע לבן"
           />
         </>
       )}

@@ -68,7 +68,7 @@ export default function TrustBadgesEditor({ value, onChange }: Props) {
         </button>
       </div>
 
-      {/* Preview pills — dark background to mirror the site hero */}
+      {/* Preview pills - dark background to mirror the site hero */}
       <div
         className="flex flex-wrap items-center justify-center gap-2 p-4 rounded-xl"
         style={{
@@ -121,7 +121,7 @@ export default function TrustBadgesEditor({ value, onChange }: Props) {
                   className="cursor-text"
                   title="לחץ לעריכה"
                 >
-                  {label || <span className="text-white/40">ריק — לחץ לעריכה</span>}
+                  {label || <span className="text-white/40">ריק - לחץ לעריכה</span>}
                 </button>
               )}
               <button

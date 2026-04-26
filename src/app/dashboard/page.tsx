@@ -393,7 +393,7 @@ export default async function DashboardPage() {
                       </td>
                       <td className="px-4 py-3">
                         <span className="text-[13px] font-semibold text-slate-800">
-                          {b.total_price != null ? `₪${b.total_price}` : "—"}
+                          {b.total_price != null ? `₪${b.total_price}` : "-"}
                         </span>
                       </td>
                       <td className="px-5 py-3">

@@ -121,7 +121,7 @@ function ModelRow({
 
       {repairs.length === 0 ? (
         <p className="text-xs text-slate-400 mt-1">
-          אין תיקונים — לחץ &quot;הוסף תיקון&quot; כדי להתחיל
+          אין תיקונים - לחץ &quot;הוסף תיקון&quot; כדי להתחיל
         </p>
       ) : (
         <div className="flex flex-wrap gap-1.5">

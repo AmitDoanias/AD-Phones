@@ -7,19 +7,15 @@ export type CreateBookingPayload = {
   service_type: "lab" | "technician";
   notes?: string;
   preferred_at?: string | null;
-  items: {
-    modelRepairId: string;
-    modelName: string;
-    brandName: string;
-    repairName: string;
-    price: number;
-  }[];
+  items: { modelRepairId: string }[];
 };
+
+const ALLOWED_SERVICE_TYPES = new Set(["lab", "technician"]);
+const TECHNICIAN_FEE = 150;
 
 export async function POST(req: NextRequest) {
   try {
     const body: CreateBookingPayload = await req.json();
-
     const { customer_name, customer_phone, service_type, notes, preferred_at, items } = body;
 
     if (!customer_name?.trim() || !customer_phone?.trim()) {
@@ -29,19 +25,67 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (!items || items.length === 0) {
+    if (!ALLOWED_SERVICE_TYPES.has(service_type)) {
       return NextResponse.json(
-        { error: "הסל ריק — לא ניתן להגיש הזמנה" },
+        { error: "סוג שירות לא תקין" },
         { status: 400 }
       );
     }
 
-    const total_price = items.reduce((sum, i) => sum + i.price, 0);
-    const technician_fee = service_type === "technician" ? 150 : 0;
+    if (!Array.isArray(items) || items.length === 0) {
+      return NextResponse.json(
+        { error: "הסל ריק - לא ניתן להגיש הזמנה" },
+        { status: 400 }
+      );
+    }
+
+    const ids = items
+      .map((i) => i?.modelRepairId)
+      .filter((id): id is string => typeof id === "string" && id.length > 0);
+
+    if (ids.length === 0 || ids.length !== items.length) {
+      return NextResponse.json(
+        { error: "פריטים לא תקינים בסל" },
+        { status: 400 }
+      );
+    }
 
     const supabase = await createClient();
 
-    // Insert booking
+    const { data: modelRepairs, error: lookupError } = await supabase
+      .from("model_repairs")
+      .select(
+        `id, price, is_active,
+         models!inner ( name, brands!inner ( name ) ),
+         repair_types!inner ( name )`
+      )
+      .in("id", ids);
+
+    if (lookupError) {
+      console.error("model_repairs lookup error:", lookupError);
+      return NextResponse.json({ error: "שגיאת שרת פנימית" }, { status: 500 });
+    }
+
+    if (!modelRepairs || modelRepairs.length !== ids.length) {
+      return NextResponse.json(
+        { error: "אחד או יותר מהשירותים שהזמנת אינו זמין" },
+        { status: 400 }
+      );
+    }
+
+    if (modelRepairs.some((mr) => !mr.is_active)) {
+      return NextResponse.json(
+        { error: "אחד מהשירותים שהזמנת אינו זמין יותר" },
+        { status: 400 }
+      );
+    }
+
+    const items_total = modelRepairs.reduce(
+      (sum, mr) => sum + Number(mr.price),
+      0
+    );
+    const technician_fee = service_type === "technician" ? TECHNICIAN_FEE : 0;
+
     const { data: booking, error: bookingError } = await supabase
       .from("bookings")
       .insert({
@@ -50,7 +94,7 @@ export async function POST(req: NextRequest) {
         service_type,
         technician_fee,
         notes: notes?.trim() || null,
-        total_price: total_price + technician_fee,
+        total_price: items_total + technician_fee,
         status: "received",
         scheduled_at: preferred_at ?? null,
       })
@@ -59,17 +103,26 @@ export async function POST(req: NextRequest) {
 
     if (bookingError || !booking) {
       console.error("booking insert error:", bookingError);
-      return NextResponse.json({ error: "שגיאה ביצירת ההזמנה" }, { status: 500 });
+      return NextResponse.json(
+        { error: "שגיאה ביצירת ההזמנה" },
+        { status: 500 }
+      );
     }
 
-    // Insert booking items
-    const bookingItems = items.map((item) => ({
-      booking_id: booking.id,
-      model_repair_id: item.modelRepairId,
-      price_at_booking: item.price,
-      model_name: `${item.brandName} ${item.modelName}`,
-      repair_name: item.repairName,
-    }));
+    const bookingItems = modelRepairs.map((mr) => {
+      const model = mr.models as unknown as {
+        name: string;
+        brands: { name: string };
+      };
+      const repairType = mr.repair_types as unknown as { name: string };
+      return {
+        booking_id: booking.id,
+        model_repair_id: mr.id,
+        price_at_booking: mr.price,
+        model_name: `${model.brands.name} ${model.name}`,
+        repair_name: repairType.name,
+      };
+    });
 
     const { error: itemsError } = await supabase
       .from("booking_items")
@@ -77,7 +130,7 @@ export async function POST(req: NextRequest) {
 
     if (itemsError) {
       console.error("booking_items insert error:", itemsError);
-      // Booking was created — still return success so user isn't left hanging
+      // Booking already created - return success so user isn't left hanging
     }
 
     return NextResponse.json({ id: booking.id }, { status: 201 });

@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { uploadImage } from "@/lib/cloudinary";
 
 export async function POST(req: NextRequest) {
-  // Auth guard — dashboard only
+  // Auth guard - dashboard only
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) {

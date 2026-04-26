@@ -35,13 +35,13 @@ export default function Topbar() {
 
   return (
     <header className="h-[60px] bg-white border-b border-slate-200/60 px-6 flex items-center justify-between gap-4 shrink-0">
-      {/* Page title — RTL start (right) */}
+      {/* Page title - RTL start (right) */}
       <div className="flex items-center gap-2.5 shrink-0">
         <Icon size={17} className="text-slate-400" />
         <span className="text-[15px] font-semibold text-slate-800">{current.label}</span>
       </div>
 
-      {/* Search — center */}
+      {/* Search - center */}
       <div className="flex-1 max-w-[280px]">
         <div className="relative">
           <Search
@@ -56,7 +56,7 @@ export default function Topbar() {
         </div>
       </div>
 
-      {/* Actions — RTL end (left) */}
+      {/* Actions - RTL end (left) */}
       <div className="flex items-center gap-2 shrink-0">
         <NotificationsBell />
         <div

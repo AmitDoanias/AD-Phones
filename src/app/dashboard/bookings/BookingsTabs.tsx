@@ -166,7 +166,7 @@ function BookingTable({ bookings }: { bookings: Booking[] }) {
                 {SERVICE_LABEL[booking.service_type] ?? booking.service_type}
               </td>
               <td className="text-right px-4 py-3.5 font-semibold text-[13px] text-card-foreground">
-                ₪{booking.total_price?.toLocaleString("he-IL") ?? "—"}
+                ₪{booking.total_price?.toLocaleString("he-IL") ?? "-"}
               </td>
               <td className="text-right px-4 py-3.5">
                 <StatusSelect id={booking.id} value={booking.status} />

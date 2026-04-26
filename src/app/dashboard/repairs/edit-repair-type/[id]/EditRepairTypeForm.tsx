@@ -120,7 +120,7 @@ export default function EditRepairTypeForm({ id, initialName, initialDescription
 
       <div className="flex flex-col gap-1.5">
         <label className="text-sm font-medium text-slate-700">
-          כותרת משנה <span className="text-slate-400 font-normal">(אופציונלי — מוצגת מתחת לכותרת הראשית בדף התיקון)</span>
+          כותרת משנה <span className="text-slate-400 font-normal">(אופציונלי - מוצגת מתחת לכותרת הראשית בדף התיקון)</span>
         </label>
         <input
           type="text"
@@ -130,13 +130,13 @@ export default function EditRepairTypeForm({ id, initialName, initialDescription
           className="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-[#0071e3]"
         />
         <p className="text-xs text-slate-400">
-          שורה קצרה שמופיעה מתחת לכותרת — השתמש ב-• להפרדה בין נקודות.
+          שורה קצרה שמופיעה מתחת לכותרת - השתמש ב-• להפרדה בין נקודות.
         </p>
       </div>
 
       <div className="flex flex-col gap-1.5">
         <label className="text-sm font-medium text-slate-700">
-          תיאור התיקון <span className="text-slate-400 font-normal">(אופציונלי — מוצג בחלונית בדף הבית ובדף התיקון)</span>
+          תיאור התיקון <span className="text-slate-400 font-normal">(אופציונלי - מוצג בחלונית בדף הבית ובדף התיקון)</span>
         </label>
         <textarea
           value={description}
@@ -146,7 +146,7 @@ export default function EditRepairTypeForm({ id, initialName, initialDescription
           className="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm leading-relaxed focus:outline-none focus:ring-2 focus:ring-[#0071e3] focus:border-[#0071e3] resize-y"
         />
         <p className="text-xs text-slate-400">
-          המלצה: 2-5 שורות. כלול את המקצועיות, זמן השירות, האחריות ואזור השירות — משפר SEO וחוויית לקוח.
+          המלצה: 2-5 שורות. כלול את המקצועיות, זמן השירות, האחריות ואזור השירות - משפר SEO וחוויית לקוח.
         </p>
       </div>
 

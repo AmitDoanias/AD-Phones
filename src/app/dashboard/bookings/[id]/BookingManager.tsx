@@ -78,7 +78,7 @@ export default function BookingManager({
       toast("ההזמנה נשמרה בהצלחה", "success");
       router.refresh();
     } catch {
-      toast("שגיאה בשמירה — נסה שוב", "error");
+      toast("שגיאה בשמירה - נסה שוב", "error");
     } finally {
       setSaving(false);
     }
@@ -87,7 +87,7 @@ export default function BookingManager({
   function buildWhatsAppUrl() {
     const digits = customerPhone.replace(/\D/g, "");
     const intlPhone = digits.startsWith("972") ? digits : "972" + digits.replace(/^0/, "");
-    const repairList = items.map((i) => `• ${i.model_name} — ${i.repair_name}`).join("\n");
+    const repairList = items.map((i) => `• ${i.model_name} - ${i.repair_name}`).join("\n");
     const scheduledText = scheduledAt
       ? `\n📅 מועד: ${new Date(scheduledAt).toLocaleString("he-IL", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" })}`
       : "";

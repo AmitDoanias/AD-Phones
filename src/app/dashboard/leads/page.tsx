@@ -110,7 +110,7 @@ export default async function LeadsPage() {
                           {device}
                         </span>
                       ) : (
-                        <span className="text-[11px] text-muted-foreground">—</span>
+                        <span className="text-[11px] text-muted-foreground">-</span>
                       )}
                     </div>
 

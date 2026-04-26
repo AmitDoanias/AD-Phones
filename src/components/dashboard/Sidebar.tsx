@@ -11,6 +11,7 @@ import {
   Calendar,
   LogOut,
   Settings,
+  HelpCircle,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
@@ -21,6 +22,7 @@ const NAV = [
   { href: "/dashboard/leads",    label: "פניות",          icon: Users },
   { href: "/dashboard/repairs",  label: "ניהול תיקונים",  icon: Wrench },
   { href: "/dashboard/blog",     label: "בלוג",           icon: BookOpen },
+  { href: "/dashboard/faqs",     label: "שאלות נפוצות",   icon: HelpCircle },
   { href: "/dashboard/calendar", label: "לוח זמנים",     icon: Calendar },
 ];
 
