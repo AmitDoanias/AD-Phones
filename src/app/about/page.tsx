@@ -2,6 +2,10 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import WhatsAppFab from "@/components/layout/WhatsAppFab";
+import JsonLd from "@/components/seo/JsonLd";
+import { localBusinessSchema, howToSchema } from "@/lib/seo";
+import ServiceProcess from "@/components/about/ServiceProcess";
+import { SERVICE_PROCESS_DATA } from "@/constants/serviceProcess";
 import { Microscope, ShieldCheck, Wrench, ChevronLeft, MessageCircle } from "lucide-react";
 import { WHATSAPP_NUMBER } from "@/constants";
 import type { Metadata } from "next";
@@ -10,23 +14,24 @@ export const metadata: Metadata = {
   title: "למה אנחנו | A&D Phones",
   description:
     "אבחון אמיתי ללא ניחושים. תיקון ברמת הרכיב, חלקים מקוריים, שקיפות מלאה. גלה למה A&D Phones שונים משאר המעבדות.",
+  alternates: { canonical: "https://ad-phones.co.il/about" },
 };
 
 const FEATURES = [
   {
     Icon: Microscope,
     title: "אנחנו לא מנחשים",
-    desc: "אנחנו מוכיחים תקלות עם ראיות. כל אבחון מתבסס על מדידות ובדיקות מדויקות — לא על ניחושים.",
+    desc: "אנחנו מוכיחים תקלות עם ראיות. כל אבחון מתבסס על מדידות ובדיקות מדויקות - לא על ניחושים.",
   },
   {
     Icon: ShieldCheck,
     title: "אנחנו לא מוכרים יותר",
-    desc: "אנחנו מתקנים רק את מה שצריך. אם הבעיה פשוטה — נגיד לך את זה ישירות, ולא נחליף רכיבים שלא לצורך.",
+    desc: "אנחנו מתקנים רק את מה שצריך. אם הבעיה פשוטה - נגיד לך את זה ישירות, ולא נחליף רכיבים שלא לצורך.",
   },
   {
     Icon: Wrench,
     title: "אנחנו לא מחליפים, מתקנים",
-    desc: "אנחנו לא ממהרים להחליף מכשירים שלא לצורך. אנחנו מתמחים בתיקון ברמת הרכיב — גם כשאחרים כבר ויתרו.",
+    desc: "אנחנו לא ממהרים להחליף מכשירים שלא לצורך. אנחנו מתמחים בתיקון ברמת הרכיב - גם כשאחרים כבר ויתרו.",
   },
 ];
 
@@ -49,7 +54,7 @@ export default function AboutPage() {
                 letterSpacing: "-0.28px",
               }}
             >
-              אבחון אמיתי —<br />ללא ניחושים.
+              אבחון אמיתי -<br />ללא ניחושים.
             </h1>
             <p
               className="text-base md:text-lg leading-relaxed mx-auto"
@@ -86,13 +91,13 @@ export default function AboutPage() {
                   className="text-base leading-relaxed mb-5"
                   style={{ color: "rgba(0,0,0,0.65)", letterSpacing: "-0.224px" }}
                 >
-                  אנחנו מתחילים בהערכה חיצונית של המכשיר שלך. בוחנים מתח וזרם — נתונים שאומרים לנו אם המכשיר מקבל חשמל כראוי, או אם יש תקלה במעגל הטעינה. אז אנחנו עוברים לניתוח פנימי עמוק יותר.
+                  אנחנו מתחילים בהערכה חיצונית של המכשיר שלך. בוחנים מתח וזרם - נתונים שאומרים לנו אם המכשיר מקבל חשמל כראוי, או אם יש תקלה במעגל הטעינה. אז אנחנו עוברים לניתוח פנימי עמוק יותר.
                 </p>
                 <p
                   className="text-base leading-relaxed"
                   style={{ color: "rgba(0,0,0,0.65)", letterSpacing: "-0.224px" }}
                 >
-                  התוצאה: אנחנו יודעים בדיוק מה שבור לפני שפותחים את המכשיר — ומציגים לך את הממצאים בשקיפות מלאה לפני כל תיקון.
+                  התוצאה: אנחנו יודעים בדיוק מה שבור לפני שפותחים את המכשיר - ומציגים לך את הממצאים בשקיפות מלאה לפני כל תיקון.
                 </p>
               </div>
 
@@ -130,7 +135,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ── WHY US — 3 CARDS ────────────────────────────────────── */}
+        {/* ── WHY US - 3 CARDS ────────────────────────────────────── */}
         <section className="bg-white px-4 py-16 md:py-20">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
@@ -186,6 +191,44 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* ── SERVICE PROCESS ─────────────────────────────────────── */}
+        <section className="bg-[#f5f5f7] px-4 py-16 md:py-24">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12 md:mb-16">
+              <p
+                className="text-xs font-semibold uppercase tracking-[0.2em] mb-3"
+                style={{ color: "#0071e3" }}
+              >
+                התהליך שלנו
+              </p>
+              <h2
+                className="font-bold mb-4"
+                style={{
+                  fontSize: "clamp(1.75rem, 4.5vw, 2.5rem)",
+                  lineHeight: 1.07,
+                  letterSpacing: "-0.4px",
+                  color: "#1d1d1f",
+                }}
+              >
+                ארבעה שלבים. אפס הפתעות.
+              </h2>
+              <p
+                className="text-base mx-auto"
+                style={{
+                  color: "rgba(0,0,0,0.55)",
+                  letterSpacing: "-0.224px",
+                  maxWidth: 480,
+                  lineHeight: 1.5,
+                }}
+              >
+                אבחון מבוסס ראיות, מחיר שקוף, ותיקון מול הלקוח - לכל מכשיר שמגיע אלינו.
+              </p>
+            </div>
+
+            <ServiceProcess />
+          </div>
+        </section>
+
         {/* ── CTA ─────────────────────────────────────────────────── */}
         <section className="bg-[#1d1d1f] px-4 py-16 md:py-20">
           <div className="max-w-2xl mx-auto text-center">
@@ -197,7 +240,7 @@ export default function AboutPage() {
                 letterSpacing: "-0.28px",
               }}
             >
-              אם אמרו לך שהמכשיר שלך לא ניתן לתיקון — תן לנו להסתכל עליו.
+              אם אמרו לך שהמכשיר שלך לא ניתן לתיקון - תן לנו להסתכל עליו.
             </h2>
             <p
               className="text-sm mb-8 leading-relaxed"
@@ -230,6 +273,8 @@ export default function AboutPage() {
       </main>
       <Footer />
       <WhatsAppFab />
+      <JsonLd data={localBusinessSchema()} />
+      <JsonLd data={howToSchema(SERVICE_PROCESS_DATA)} />
     </>
   );
 }

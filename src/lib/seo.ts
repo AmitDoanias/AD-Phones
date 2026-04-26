@@ -5,12 +5,31 @@ const SITE_URL = "https://ad-phones.co.il";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.jpg`;
 const PHONE = "054-772-3281";
 const CITY = "ראשון לציון";
+const STREET_ADDRESS = "מעגל השלום 3";
+
+const SERVICE_AREAS = [
+  "ראשון לציון",
+  "רחובות",
+  "בת ים",
+  "נס ציונה",
+  "חולון",
+  "פתח תקווה",
+  "רמלה",
+  "משמר השבעה",
+  "גבעתיים",
+  "רמת גן",
+  "תל אביב",
+  "הרצליה",
+  "אור יהודה",
+  "קרית אונו",
+  "סביון",
+];
 
 // ─── Page-level metadata helpers ────────────────────────────────────────────
 
 export function generateBrandMetadata(brandName: string): Metadata {
   const title = `תיקון ${brandName} | ${SITE_NAME}`;
-  const description = `תיקון ${brandName} מקצועי ב${CITY} — מסכים, סוללות, מצלמות ועוד. מחירים שקופים, אחריות על כל תיקון. ${PHONE}`;
+  const description = `תיקון ${brandName} מקצועי ב${CITY} - מסכים, סוללות, מצלמות ועוד. מחירים שקופים, אחריות על כל תיקון. ${PHONE}`;
   return {
     title,
     description,
@@ -43,7 +62,7 @@ export function generateModelMetadata(params: {
     `תיקון ${params.modelName} | ${params.brandName} | ${SITE_NAME}`;
   const description =
     params.seoDescription ??
-    `תיקון ${params.modelName} ב${CITY} — החלפת מסך, סוללה, מצלמה ועוד. שירות מהיר, מחירים שקופים, אחריות מלאה. ${PHONE}`;
+    `תיקון ${params.modelName} ב${CITY} - החלפת מסך, סוללה, מצלמה ועוד. שירות מהיר, מחירים שקופים, אחריות מלאה. ${PHONE}`;
   const url = `${SITE_URL}/repairs/${params.brandSlug}/${params.modelSlug}`;
   const ogImage = params.imageUrl ?? DEFAULT_OG_IMAGE;
 
@@ -82,7 +101,7 @@ export function generateRepairPageMetadata(params: {
   description?: string | null;
   imageUrl?: string | null;
 }): Metadata {
-  const title = `${params.repairName} ל${params.modelName} — מחיר ${params.price}₪ | ${SITE_NAME}`;
+  const title = `${params.repairName} ל${params.modelName} - מחיר ${params.price}₪ | ${SITE_NAME}`;
   const description =
     params.description?.trim() ||
     `${params.repairName} ל${params.modelName} ב${CITY}. מחיר ${params.price}₪, אחריות 90 יום, שירות ביום הפנייה. ${PHONE}`;
@@ -111,13 +130,13 @@ export function generateRepairServiceListMetadata(params: {
   repairSlug: string;
   description?: string | null;
 }): Metadata {
-  const title = `${params.repairName} — מחירים לכל הדגמים | ${SITE_NAME}`;
+  const title = `${params.repairName} - מחירים לכל הדגמים | ${SITE_NAME}`;
   const rawDesc = (params.description ?? "").trim();
   const description = rawDesc
     ? rawDesc.length > 155
       ? `${rawDesc.slice(0, 152).trimEnd()}…`
       : rawDesc
-    : `${params.repairName} ב${CITY} — מחירים שקופים לכל הדגמים, אחריות 90 יום, שירות ביום פנייה. ${PHONE}`;
+    : `${params.repairName} ב${CITY} - מחירים שקופים לכל הדגמים, אחריות 90 יום, שירות ביום פנייה. ${PHONE}`;
   const url = `${SITE_URL}/repairs/services/${params.repairSlug}`;
 
   return {
@@ -145,16 +164,20 @@ export function localBusinessSchema() {
     "@type": "LocalBusiness",
     "@id": `${SITE_URL}/#business`,
     name: SITE_NAME,
-    description: "תיקון מקצועי לאייפון, אייפד וסמסונג ברחובות",
+    description: "תיקון מקצועי לאייפון, אייפד וסמסונג בראשון לציון ובכל מרכז הארץ",
     url: SITE_URL,
     telephone: `+972${PHONE.replace(/-/g, "").slice(1)}`,
+    image: `${SITE_URL}/logo.png`,
     address: {
       "@type": "PostalAddress",
+      streetAddress: STREET_ADDRESS,
       addressLocality: CITY,
       addressCountry: "IL",
     },
     geo: {
       "@type": "GeoCoordinates",
+      latitude: 31.9691218,
+      longitude: 34.7673615,
     },
     priceRange: "₪₪",
     openingHoursSpecification: [
@@ -164,12 +187,22 @@ export function localBusinessSchema() {
         opens: "09:00",
         closes: "19:00",
       },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Friday"],
+        opens: "09:00",
+        closes: "14:00",
+      },
     ],
-    sameAs: [],
+    areaServed: SERVICE_AREAS.map((city) => ({ "@type": "City", name: city })),
+    sameAs: [
+      "https://share.google/ZBbiMpCRSFWMlY4Bl",
+      // TODO: הוסף URLs של Facebook ו-Instagram כשיסופקו
+    ],
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: "4.9",
-      reviewCount: "400",
+      ratingValue: "5.0",
+      reviewCount: "197",
       bestRating: "5",
     },
   };
@@ -193,7 +226,7 @@ export function repairServiceSchema(params: {
       position: i + 1,
       item: {
         "@type": "Service",
-        name: `${r.name} — ${params.modelName}`,
+        name: `${r.name} - ${params.modelName}`,
         provider: {
           "@type": "LocalBusiness",
           name: SITE_NAME,
@@ -225,7 +258,7 @@ export function singleRepairListSchema(params: {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: `${params.repairName} — מחירים לכל הדגמים`,
+    name: `${params.repairName} - מחירים לכל הדגמים`,
     url: listUrl,
     numberOfItems: params.entries.length,
     itemListElement: params.entries.map((e, i) => ({
@@ -283,11 +316,12 @@ export function singleRepairServiceSchema(params: {
       telephone: `+972${PHONE.replace(/-/g, "").slice(1)}`,
       address: {
         "@type": "PostalAddress",
+        streetAddress: STREET_ADDRESS,
         addressLocality: CITY,
         addressCountry: "IL",
       },
     },
-    areaServed: { "@type": "City", name: CITY },
+    areaServed: SERVICE_AREAS.map((city) => ({ "@type": "City", name: city })),
     brand: { "@type": "Brand", name: params.brandName },
     offers: {
       "@type": "Offer",
@@ -311,6 +345,67 @@ export function faqSchema(items: { question: string; answer: string }[]) {
       "@type": "Question",
       name: item.question,
       acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  };
+}
+
+export function howToSchema(params: {
+  name: string;
+  description: string;
+  totalTime?: string; // ISO 8601 duration, e.g. "PT10M" = 10 minutes
+  steps: { name: string; text: string }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: params.name,
+    description: params.description,
+    ...(params.totalTime ? { totalTime: params.totalTime } : {}),
+    step: params.steps.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+    })),
+  };
+}
+
+export function breadcrumbSchema(items: { name: string; url: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: item.url.startsWith("http") ? item.url : `${SITE_URL}${item.url}`,
+    })),
+  };
+}
+
+export function reviewSchema(
+  reviews: {
+    author_name: string;
+    rating: number;
+    text: string;
+    time: string;
+  }[]
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `${SITE_URL}/#business`,
+    name: SITE_NAME,
+    review: reviews.map((r) => ({
+      "@type": "Review",
+      author: { "@type": "Person", name: r.author_name },
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: r.rating,
+        bestRating: 5,
+      },
+      reviewBody: r.text,
+      datePublished: r.time,
     })),
   };
 }
