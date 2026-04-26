@@ -33,7 +33,7 @@ export default function AddToCartButton({ item }: Props) {
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
         aria-pressed="true"
-        aria-label={`${item.repairName} בסל — לחץ להסרה`}
+        aria-label={`${item.repairName} בסל - לחץ להסרה`}
         className={`inline-flex items-center justify-center gap-1.5 h-11 px-4 rounded-[10px] text-sm font-medium transition-all focus-visible:outline-2 focus-visible:outline-[#0071e3] ${
           showRemove
             ? "bg-red-50 text-red-700 border border-red-200"

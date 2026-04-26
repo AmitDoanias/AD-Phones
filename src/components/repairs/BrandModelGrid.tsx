@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import AnimatedCard from "@/components/repairs/AnimatedCard";
 import { isIPhoneModel, isIPadModel } from "@/lib/utils";
@@ -37,13 +38,17 @@ function filterByTab(models: Model[], tab: Tab): Model[] {
 }
 
 export default function BrandModelGrid({ models, brandSlug, brandName, showLineTabs }: Props) {
-  const [activeTab, setActiveTab] = useState<Tab>("all");
+  const searchParams = useSearchParams();
+  const lineParam = searchParams.get("line");
+  const initialTab: Tab =
+    lineParam === "iphone" || lineParam === "ipad" ? lineParam : "all";
+  const [activeTab, setActiveTab] = useState<Tab>(initialTab);
 
   const visible = filterByTab(models, activeTab);
 
   return (
     <>
-      {/* Tabs — only shown for Apple (or any brand with multiple product lines) */}
+      {/* Tabs - only shown for Apple (or any brand with multiple product lines) */}
       {showLineTabs && (
         <div className="flex justify-center gap-2 mb-8">
           {(["all", "iphone", "ipad"] as Tab[]).map((tab) => (

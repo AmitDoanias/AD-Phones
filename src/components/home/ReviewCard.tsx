@@ -1,10 +1,11 @@
 import { Star } from "lucide-react";
 
 export type Review = {
-  reviewer_name: string;
+  author_name: string;
   rating: number;
   text: string;
-  published_at: string;
+  time: string;
+  profile_photo?: string | null;
 };
 
 function formatDate(dateStr: string) {
@@ -52,10 +53,10 @@ export default function ReviewCard({ review }: { review: Review }) {
           className="text-sm font-semibold"
           style={{ color: "#1d1d1f", letterSpacing: "0.196px" }}
         >
-          {review.reviewer_name}
+          {review.author_name}
         </span>
         <span className="text-xs" style={{ color: "rgba(0,0,0,0.4)" }}>
-          {formatDate(review.published_at)}
+          {formatDate(review.time)}
         </span>
       </div>
     </div>

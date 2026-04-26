@@ -1,37 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Smartphone, Battery, Camera, Wrench } from "lucide-react";
+import Image from "next/image";
 
 const SLIDES = [
-  {
-    label: "תיקון מסך",
-    sub: "אייפון · סמסונג · אייפד",
-    Icon: Smartphone,
-    bg: "#1a2540",
-    accent: "#2997ff",
-  },
-  {
-    label: "החלפת סוללה",
-    sub: "שחזור קיבולת מלאה",
-    Icon: Battery,
-    bg: "#0f2a1a",
-    accent: "#34c759",
-  },
-  {
-    label: "תיקון מצלמה",
-    sub: "קדמית ואחורית",
-    Icon: Camera,
-    bg: "#251a35",
-    accent: "#bf5af2",
-  },
-  {
-    label: "שירות כללי",
-    sub: "כל תקלה · כל דגם",
-    Icon: Wrench,
-    bg: "#2a1e0e",
-    accent: "#ff9f0a",
-  },
+  { src: "/iPhone_Hero_1.webp", alt: "תיקון אייפון - A&D Phones" },
+  { src: "/iPad_Hero.webp",    alt: "תיקון אייפד - A&D Phones" },
 ];
 
 export default function HeroCarousel() {
@@ -48,47 +22,32 @@ export default function HeroCarousel() {
   }, []);
 
   return (
-    <div className="relative w-full max-w-sm mx-auto md:mx-0 md:max-w-none md:w-96 lg:w-[460px] flex-shrink-0">
-      {/* Card stack */}
+    <div className="relative w-full max-w-sm mx-auto md:mx-0 md:max-w-none md:w-[420px] lg:w-[520px] flex-shrink-0">
       <div
-        className="relative rounded-[16px] overflow-hidden"
+        className="relative rounded-[16px] overflow-hidden bg-slate-100"
         style={{ aspectRatio: "1 / 1" }}
       >
         {SLIDES.map((slide, i) => (
           <div
-            key={i}
-            className="absolute inset-0 flex flex-col items-center justify-center p-8 transition-opacity duration-700"
+            key={slide.src}
+            className="absolute inset-0 transition-opacity duration-700"
             style={{
-              background: slide.bg,
               opacity: i === current ? 1 : 0,
               pointerEvents: i === current ? "auto" : "none",
             }}
             aria-hidden={i !== current}
           >
-            {/* Icon */}
-            <div
-              className="w-24 h-24 rounded-[20px] flex items-center justify-center mb-6"
-              style={{ background: `${slide.accent}22` }}
-            >
-              <slide.Icon size={48} style={{ color: slide.accent }} />
-            </div>
-
-            <p
-              className="text-2xl font-bold text-white mb-1 text-center"
-              style={{ letterSpacing: "-0.28px", lineHeight: 1.1 }}
-            >
-              {slide.label}
-            </p>
-            <p
-              className="text-sm text-center"
-              style={{ color: "rgba(255,255,255,0.5)" }}
-            >
-              {slide.sub}
-            </p>
+            <Image
+              src={slide.src}
+              alt={slide.alt}
+              fill
+              sizes="(min-width: 1024px) 520px, (min-width: 768px) 420px, 100vw"
+              className="object-cover"
+              priority={i === 0}
+            />
           </div>
         ))}
 
-        {/* Dot indicators */}
         <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5">
           {SLIDES.map((_, i) => (
             <button
@@ -98,7 +57,7 @@ export default function HeroCarousel() {
               style={{
                 width: i === current ? 20 : 7,
                 height: 7,
-                background: i === current ? "white" : "rgba(255,255,255,0.3)",
+                background: i === current ? "white" : "rgba(255,255,255,0.5)",
               }}
               aria-label={`שקופית ${i + 1}`}
             />

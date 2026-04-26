@@ -9,7 +9,7 @@ import AnimatedCard from "@/components/repairs/AnimatedCard";
 import JsonLd from "@/components/seo/JsonLd";
 import { createClient } from "@/lib/supabase/server";
 import { createStaticClient } from "@/lib/supabase/static";
-import { generateModelMetadata, repairServiceSchema } from "@/lib/seo";
+import { generateModelMetadata, repairServiceSchema, breadcrumbSchema } from "@/lib/seo";
 import AddToCartButton from "./AddToCartButton";
 import CartStickyBar from "./CartStickyBar";
 import { getRepairVisual } from "@/lib/repairIcons";
@@ -123,6 +123,12 @@ export default async function ModelPage({ params }: Props) {
     modelSlug: model.slug,
     brandSlug: brand.slug,
   });
+
+  const breadcrumbData = breadcrumbSchema([
+    { name: "תיקונים", url: "/repairs" },
+    { name: brand.name, url: `/repairs/${brand.slug}` },
+    { name: model.name, url: `/repairs/${brand.slug}/${model.slug}` },
+  ]);
 
   return (
     <>
@@ -273,7 +279,7 @@ export default async function ModelPage({ params }: Props) {
                             ? minDuration < 60
                               ? `${minDuration} דק׳`
                               : `${(minDuration / 60).toFixed(minDuration % 60 === 0 ? 0 : 1)} שע׳`
-                            : "—"}
+                            : "-"}
                         </p>
                         <p
                           className="text-[11px] mt-1.5 font-medium"
@@ -286,7 +292,7 @@ export default async function ModelPage({ params }: Props) {
                   )}
                 </div>
 
-                {/* Product image (left in RTL — larger, tilted backdrop) */}
+                {/* Product image (left in RTL - larger, tilted backdrop) */}
                 <div className="order-1 md:order-2 relative flex items-center justify-center">
                   <div
                     className="relative w-full max-w-[320px] aspect-square rounded-[24px] flex items-center justify-center overflow-hidden"
@@ -496,6 +502,7 @@ export default async function ModelPage({ params }: Props) {
       <WhatsAppFab />
       <CartStickyBar />
       <JsonLd data={jsonLdData} />
+      <JsonLd data={breadcrumbData} />
     </>
   );
 }

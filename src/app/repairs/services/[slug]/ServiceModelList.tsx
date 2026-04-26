@@ -60,7 +60,7 @@ export default function ServiceModelList({ entries, repairName, repairSlug }: Pr
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Search — centered, compact */}
+      {/* Search - centered, compact */}
       <div
         className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white w-full max-w-[360px] mx-auto"
         style={{ boxShadow: "rgba(0,0,0,0.05) 0px 1px 6px 0px" }}

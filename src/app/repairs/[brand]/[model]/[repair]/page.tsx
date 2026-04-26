@@ -9,7 +9,7 @@ import AnimatedCard from "@/components/repairs/AnimatedCard";
 import JsonLd from "@/components/seo/JsonLd";
 import { createClient } from "@/lib/supabase/server";
 import { createStaticClient } from "@/lib/supabase/static";
-import { generateRepairPageMetadata, singleRepairServiceSchema } from "@/lib/seo";
+import { generateRepairPageMetadata, singleRepairServiceSchema, breadcrumbSchema } from "@/lib/seo";
 import { normalizeTrustBadges, getBadgeIcon } from "@/lib/trustBadges";
 import AddToCartButton from "../AddToCartButton";
 import CartStickyBar from "../CartStickyBar";
@@ -134,6 +134,16 @@ export default async function RepairDetailPage({ params }: Props) {
     description: repairType.description,
     imageUrl: model.image_url,
   });
+
+  const breadcrumbData = breadcrumbSchema([
+    { name: "תיקונים", url: "/repairs" },
+    { name: brand.name, url: `/repairs/${brand.slug}` },
+    { name: model.name, url: `/repairs/${brand.slug}/${model.slug}` },
+    {
+      name: repairType.name,
+      url: `/repairs/${brand.slug}/${model.slug}/${repairType.slug}`,
+    },
+  ]);
 
   const cartItem = {
     modelRepairId: modelRepair.id,
@@ -371,6 +381,7 @@ export default async function RepairDetailPage({ params }: Props) {
       <WhatsAppFab />
       <CartStickyBar />
       <JsonLd data={jsonLdData} />
+      <JsonLd data={breadcrumbData} />
     </>
   );
 }
