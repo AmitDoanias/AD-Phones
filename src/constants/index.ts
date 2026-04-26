@@ -50,5 +50,4 @@ export const NAV_LINKS = [
   { href: "/repairs", label: "תיקונים" },
   { href: "/about", label: "למה אנחנו" },
   { href: "/contact", label: "יצירת קשר" },
-  { href: "/blog", label: "בלוג" },
 ];
