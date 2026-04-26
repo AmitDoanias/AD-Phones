@@ -96,7 +96,7 @@ export default function ContactForm({ models }: Props) {
         setSuccess(true);
       }
     } catch {
-      setError("בעיית חיבור — בדוק את האינטרנט ונסה שוב.");
+      setError("בעיית חיבור - בדוק את האינטרנט ונסה שוב.");
     } finally {
       setLoading(false);
     }
@@ -395,7 +395,9 @@ function BusinessInfo() {
             </div>
             <div>
               <p className="text-xs font-medium mb-0.5" style={{ color: "rgba(0,0,0,0.45)" }}>כתובת</p>
-              <p className="text-sm font-medium" style={{ color: "#1d1d1f" }}>ראשון לציון</p>
+              <p className="text-sm font-medium" style={{ color: "#1d1d1f" }}>
+                מעגל השלום 3, ראשון לציון
+              </p>
             </div>
           </li>
           <li className="flex items-start gap-3">
@@ -450,6 +452,37 @@ function BusinessInfo() {
           <p className="text-xs" style={{ color: "rgba(0,0,0,0.45)" }}>זמין לשאלות מהירות</p>
         </div>
       </a>
+
+      {/* Location map */}
+      <div
+        className="bg-white rounded-[12px] overflow-hidden"
+        style={{ boxShadow: "rgba(0,0,0,0.07) 0px 2px 14px 0px" }}
+      >
+        <div className="px-6 pt-5 pb-3 flex items-center justify-between">
+          <h3 className="font-bold" style={{ color: "#1d1d1f", fontSize: "1rem" }}>
+            המיקום שלנו
+          </h3>
+          <a
+            href="https://www.google.com/maps/place/AD+Phones/@31.9691218,34.7673615,17z"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs font-medium transition-colors hover:text-[#0071e3]"
+            style={{ color: "#0066cc" }}
+          >
+            פתח ב-Google Maps →
+          </a>
+        </div>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3384.6967810221204!2d34.7673615!3d31.969121800000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502b3a8388d2471%3A0x561a8f661c931d79!2sAD%20Phones!5e0!3m2!1siw!2sil!4v1776944458579!5m2!1siw!2sil"
+          width="100%"
+          height="260"
+          style={{ border: 0 }}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          allowFullScreen
+          title="מפת המיקום של A&D Phones"
+        />
+      </div>
     </div>
   );
 }

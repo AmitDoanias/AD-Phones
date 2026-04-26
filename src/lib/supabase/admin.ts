@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 
-// Service-role client — only use in server-side code (API routes, webhooks, cron)
+// Service-role client - only use in server-side code (API routes, webhooks, cron)
 export function createAdminClient() {
   return createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

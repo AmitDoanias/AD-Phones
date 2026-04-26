@@ -116,7 +116,7 @@ export default async function BookingConfirmationPage({ params }: Props) {
                 </span>
               </div>
               <p className="text-xs" style={{ color: "rgba(0,0,0,0.4)" }}>
-                * תשלום בסיום התיקון — לא נגבה עכשיו
+                * תשלום בסיום התיקון - לא נגבה עכשיו
               </p>
             </div>
           </section>
@@ -148,7 +148,7 @@ export default async function BookingConfirmationPage({ params }: Props) {
                 {
                   n: 3,
                   title: "נתקן ונחזיר",
-                  body: "רוב התיקונים מוכנים ביום — תקבל הודעה כשהמכשיר מוכן",
+                  body: "רוב התיקונים מוכנים ביום - תקבל הודעה כשהמכשיר מוכן",
                   icon: Wrench,
                 },
               ].map((step) => (

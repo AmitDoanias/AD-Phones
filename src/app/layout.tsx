@@ -15,7 +15,7 @@ const SITE_URL = "https://ad-phones.co.il";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "A&D Phones | תיקון סלולר מקצועי בראשון לציו",
+    default: "A&D Phones | תיקון סלולר מקצועי בראשון לציון",
     template: "%s | A&D Phones",
   },
   description:

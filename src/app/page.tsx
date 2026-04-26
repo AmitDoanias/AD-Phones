@@ -4,15 +4,17 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import WhatsAppFab from "@/components/layout/WhatsAppFab";
 import AnimatedCard from "@/components/repairs/AnimatedCard";
+import BrandLogo from "@/components/ui/BrandLogo";
 import JsonLd from "@/components/seo/JsonLd";
 import HeroCarousel from "@/components/home/HeroCarousel";
-import ReviewsSection from "@/components/home/ReviewsSection";
+import TrustindexReviews from "@/components/home/TrustindexReviews";
 import CountUpStat from "@/components/home/CountUpStat";
 import FaqAccordion from "@/components/home/FaqAccordion";
 import PopularRepairs3D from "@/components/home/PopularRepairs3D";
 import { type Review } from "@/components/home/ReviewCard";
 import { createClient } from "@/lib/supabase/server";
-import { localBusinessSchema } from "@/lib/seo";
+import { localBusinessSchema, faqSchema, reviewSchema } from "@/lib/seo";
+import { FAQS } from "@/constants/faqs";
 import { WHATSAPP_NUMBER } from "@/constants";
 import {
   Phone,
@@ -30,22 +32,22 @@ export const revalidate = 3600;
 // ── Static reviews fallback ───────────────────────────────────────────────
 const STATIC_REVIEWS: Review[] = [
   {
-    reviewer_name: "משה כהן",
+    author_name: "משה כהן",
     rating: 5,
     text: "שירות מעולה! תיקנו לי את המסך תוך שעה במחיר הוגן. הטכנאי היה מקצועי ואדיב. ממליץ בחום!",
-    published_at: "2024-03-15",
+    time: "2024-03-15",
   },
   {
-    reviewer_name: "רחל לוי",
+    author_name: "רחל לוי",
     rating: 5,
     text: "הגיע לביתי ותיקן את הסוללה מהר מאוד. מחיר שקוף ואמין, בלי הפתעות. בהחלט אחזור.",
-    published_at: "2024-02-20",
+    time: "2024-02-20",
   },
   {
-    reviewer_name: "דוד ברגר",
+    author_name: "דוד ברגר",
     rating: 5,
-    text: "הגעתי עם אייפון שלא נדלק — יצאתי עם טלפון חדש תוך חצי שעה. מקצוענות ברמה אחרת!",
-    published_at: "2024-01-10",
+    text: "הגעתי עם אייפון שלא נדלק - יצאתי עם טלפון חדש תוך חצי שעה. מקצוענות ברמה אחרת!",
+    time: "2024-01-10",
   },
 ];
 
@@ -82,7 +84,7 @@ const STATIC_POSTS = [
     date: "2024-02-15",
   },
   {
-    title: "סמסונג מול אייפון — מי קל יותר לתיקון?",
+    title: "סמסונג מול אייפון - מי קל יותר לתיקון?",
     slug: "samsung-vs-iphone-repair",
     excerpt: "השוואה מקצועית בין שתי הפלטפורמות מנקודת מבט של טכנאי תיקון סלולר.",
     date: "2024-01-20",
@@ -101,8 +103,8 @@ export default async function HomePage() {
   try {
     const { data } = await supabase
       .from("reviews_cache")
-      .select("reviewer_name, rating, text, published_at")
-      .order("published_at", { ascending: false })
+      .select("author_name, rating, text, time, profile_photo")
+      .order("time", { ascending: false })
       .limit(6);
     if (data && data.length > 0) reviews = data as Review[];
   } catch {
@@ -157,7 +159,7 @@ export default async function HomePage() {
             {/* RTL: text FIRST → appears on RIGHT. Carousel SECOND → appears on LEFT */}
             <div className="md:flex gap-12 items-center">
 
-              {/* Text — RIGHT in RTL (first child) */}
+              {/* Text - RIGHT in RTL (first child) */}
               <div className="flex-1 mb-10 md:mb-0 text-center md:text-right">
                 <h1
                   className="font-bold mb-4"
@@ -248,7 +250,7 @@ export default async function HomePage() {
                 </div>
               </div>
 
-              {/* Carousel — LEFT in RTL (second child), larger size */}
+              {/* Carousel - LEFT in RTL (second child), larger size */}
               <HeroCarousel />
 
             </div>
@@ -274,7 +276,7 @@ export default async function HomePage() {
                 ביקורות אמיתיות מלקוחות מרוצים
               </p>
             </div>
-            <ReviewsSection reviews={reviews} />
+            <TrustindexReviews />
             <p className="text-center text-xs mt-6" style={{ color: "rgba(0,0,0,0.35)" }}>
               ביקורות מ-Google Reviews
             </p>
@@ -291,7 +293,7 @@ export default async function HomePage() {
             {/* Text + 3 SQUARE stat boxes side by side */}
             <div className="md:flex gap-12 items-center mb-12">
 
-              {/* Text — RIGHT in RTL */}
+              {/* Text - RIGHT in RTL */}
               <div className="flex-1 mb-10 md:mb-0">
                 <h2
                   className="font-bold mb-4"
@@ -324,7 +326,7 @@ export default async function HomePage() {
                 </Link>
               </div>
 
-              {/* 3 SQUARE stat boxes — LEFT in RTL, displayed side by side */}
+              {/* 3 SQUARE stat boxes - LEFT in RTL, displayed side by side */}
               <div className="grid grid-cols-3 gap-3 md:w-auto md:flex-shrink-0 md:gap-4" style={{ minWidth: 0 }}>
                 {STATS.map((stat, i) => (
                   <AnimatedCard key={i} delay={i * 100}>
@@ -362,7 +364,7 @@ export default async function HomePage() {
             {/* Divider */}
             <div className="my-10" style={{ borderTop: "1px solid rgba(0,0,0,0.1)" }} aria-hidden />
 
-            {/* Symbols grid — 2 rows × 3 cols */}
+            {/* Symbols grid - 2 rows × 3 cols */}
             <div className="grid grid-cols-3 gap-4">
               {SYMBOLS.map((s, i) => (
                 <AnimatedCard key={i} delay={i * 70}>
@@ -522,8 +524,8 @@ export default async function HomePage() {
         </section>
 
         {/* ── 7. FAQs ──────────────────────────────────────────────── */}
-        <section className="bg-[#1d1d1f] py-16 px-4">
-          <div className="max-w-3xl mx-auto">
+        <section id="faq" className="bg-[#1d1d1f] py-16 px-4 scroll-mt-20">
+          <div className="max-w-5xl mx-auto">
             <div className="text-center mb-10">
               <h2
                 className="font-bold mb-2"
@@ -537,7 +539,7 @@ export default async function HomePage() {
                 שאלות נפוצות
               </h2>
               <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-                כל מה שרצית לדעת לפני שמגיעים
+                מצא תשובות לשאלות הנפוצות ביותר
               </p>
             </div>
             <FaqAccordion />
@@ -552,7 +554,7 @@ export default async function HomePage() {
           >
             <div className="max-w-5xl mx-auto">
               <p
-                className="text-center text-sm font-semibold mb-8"
+                className="text-center text-base md:text-lg font-semibold mb-8"
                 style={{ color: "#1d1d1f", letterSpacing: "0.196px" }}
               >
                 לאיזה מכשיר צריך תיקון?
@@ -565,20 +567,8 @@ export default async function HomePage() {
                       className="group block bg-white rounded-[8px] p-5 text-center w-36 transition-shadow hover:shadow-[rgba(0,0,0,0.22)_3px_5px_30px_0px]"
                       style={{ boxShadow: "rgba(0,0,0,0.10) 0px 2px 12px 0px" }}
                     >
-                      <div className="h-12 flex items-center justify-center mb-2">
-                        {brand.icon_url ? (
-                          <Image
-                            src={brand.icon_url}
-                            alt={brand.name}
-                            width={48}
-                            height={48}
-                            className="object-contain h-11 w-auto"
-                          />
-                        ) : (
-                          <span className="text-3xl font-bold" style={{ color: "rgba(0,0,0,0.15)" }}>
-                            {brand.name.charAt(0)}
-                          </span>
-                        )}
+                      <div className="mb-3 flex justify-center">
+                        <BrandLogo slug={brand.slug} name={brand.name} size="md" />
                       </div>
                       <p className="text-sm font-semibold" style={{ color: "#1d1d1f", letterSpacing: "0.196px" }}>
                         {brand.name}
@@ -609,7 +599,11 @@ export default async function HomePage() {
                 <ul className="space-y-5 text-sm">
                   <li className="flex items-start gap-3">
                     <MapPin size={16} className="flex-shrink-0 mt-0.5" style={{ color: "rgba(255,255,255,0.5)" }} />
-                    <span style={{ color: "rgba(255,255,255,0.8)" }}>כתובת העסק</span>
+                    <span style={{ color: "rgba(255,255,255,0.8)", lineHeight: 1.6 }}>
+                      מעגל השלום 3
+                      <br />
+                      ראשון לציון
+                    </span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Clock size={16} className="flex-shrink-0 mt-0.5" style={{ color: "rgba(255,255,255,0.5)" }} />
@@ -643,31 +637,20 @@ export default async function HomePage() {
                 </a>
               </div>
 
-              <div className="flex-1 rounded-[8px] overflow-hidden" style={{ minHeight: 280 }}>
-                <div
-                  className="w-full h-full flex items-center justify-center rounded-[8px]"
-                  style={{
-                    minHeight: 280,
-                    background: "#272729",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                  }}
-                >
-                  <div className="text-center px-6">
-                    <MapPin size={32} className="mx-auto mb-3" style={{ color: "rgba(255,255,255,0.25)" }} />
-                    <p className="text-sm font-medium mb-1" style={{ color: "rgba(255,255,255,0.6)" }}>
-                      כתובת העסק
-                    </p>
-                    <a
-                      href="https://maps.google.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs hover:underline"
-                      style={{ color: "#2997ff" }}
-                    >
-                      פתח ב-Google Maps ›
-                    </a>
-                  </div>
-                </div>
+              <div
+                className="flex-1 rounded-[8px] overflow-hidden"
+                style={{ minHeight: 280, border: "1px solid rgba(255,255,255,0.08)" }}
+              >
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3384.6967810221204!2d34.7673615!3d31.969121800000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502b3a8388d2471%3A0x561a8f661c931d79!2sAD%20Phones!5e0!3m2!1siw!2sil!4v1776944458579!5m2!1siw!2sil"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, minHeight: 280, display: "block" }}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                  title="מפת המיקום של A&D Phones"
+                />
               </div>
             </div>
           </div>
@@ -677,6 +660,8 @@ export default async function HomePage() {
       <Footer />
       <WhatsAppFab />
       <JsonLd data={localBusinessSchema()} />
+      <JsonLd data={faqSchema(FAQS)} />
+      {reviews.length > 0 && <JsonLd data={reviewSchema(reviews)} />}
     </>
   );
 }

@@ -1,14 +1,17 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import WhatsAppFab from "@/components/layout/WhatsAppFab";
+import JsonLd from "@/components/seo/JsonLd";
 import ContactForm from "./ContactForm";
 import { createClient } from "@/lib/supabase/server";
+import { localBusinessSchema } from "@/lib/seo";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "יצירת קשר | A&D Phones",
   description:
     "צור קשר עם A&D Phones לתיקון מקצועי לאייפון, אייפד וסמסונג. בחר דגם, תאר את הבעיה ונחזור אליך מהר.",
+  alternates: { canonical: "https://ad-phones.co.il/contact" },
 };
 
 export default async function ContactPage() {
@@ -53,7 +56,7 @@ export default async function ContactPage() {
               className="text-sm md:text-base"
               style={{ color: "rgba(255,255,255,0.55)", letterSpacing: "-0.224px" }}
             >
-              בחר דגם, תאר את הבעיה — ונחזור אליך מהר ככל האפשר.
+              בחר דגם, תאר את הבעיה - ונחזור אליך מהר ככל האפשר.
             </p>
           </div>
         </section>
@@ -68,6 +71,7 @@ export default async function ContactPage() {
       </main>
       <Footer />
       <WhatsAppFab />
+      <JsonLd data={localBusinessSchema()} />
     </>
   );
 }

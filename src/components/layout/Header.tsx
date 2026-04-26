@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X, Wrench, ShoppingCart } from "lucide-react";
+import { Menu, X, Wrench, ShoppingCart, ChevronRight } from "lucide-react";
 import { NAV_LINKS } from "@/constants";
 import { useCart } from "@/hooks/useCart";
 
@@ -16,17 +16,33 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 shrink-0">
-          <Image
-            src="/logo.png"
-            alt="AD Phones"
-            width={120}
-            height={40}
-            className="h-10 w-auto"
-            priority
-          />
-        </Link>
+        {/* Back + Logo (RTL start) */}
+        <div className="flex items-center gap-1 shrink-0">
+          {pathname !== "/" && (
+            <button
+              type="button"
+              onClick={() =>
+                window.history.length > 1
+                  ? window.history.back()
+                  : (window.location.href = "/")
+              }
+              className="md:hidden p-2 -mr-1 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
+              aria-label="חזרה"
+            >
+              <ChevronRight size={24} strokeWidth={2.2} />
+            </button>
+          )}
+          <Link href="/" className="flex items-center gap-2 shrink-0">
+            <Image
+              src="/logo.png"
+              alt="AD Phones"
+              width={120}
+              height={40}
+              className="h-10 w-auto"
+              priority
+            />
+          </Link>
+        </div>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-1">

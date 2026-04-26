@@ -17,8 +17,6 @@ import {
   ChevronLeft,
   AlertCircle,
   Loader2,
-  CalendarDays,
-  Clock,
   Trash2,
   ShoppingCart,
 } from "lucide-react";
@@ -137,6 +135,8 @@ export default function CartPage() {
   const nameId = useId();
   const phoneId = useId();
   const notesId = useId();
+  const dateId = useId();
+  const timeId = useId();
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -145,7 +145,12 @@ export default function CartPage() {
   const [preferredDate, setPreferredDate] = useState("");
   const [preferredTime, setPreferredTime] = useState("");
 
-  const [errors, setErrors] = useState<{ name?: string; phone?: string }>({});
+  const [errors, setErrors] = useState<{
+    name?: string;
+    phone?: string;
+    preferredDate?: string;
+    preferredTime?: string;
+  }>({});
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState("");
 
@@ -198,6 +203,9 @@ export default function CartPage() {
     else if (cleanPhone.length < 9 || cleanPhone.length > 11)
       e.phone = "מספר טלפון לא תקין (למשל: 054-772-3281)";
 
+    if (!preferredDate) e.preferredDate = "נא לבחור תאריך";
+    if (!preferredTime) e.preferredTime = "נא לבחור שעה";
+
     return e;
   }
 
@@ -210,15 +218,14 @@ export default function CartPage() {
     if (Object.keys(e2).length > 0) {
       if (e2.name) document.getElementById(nameId)?.focus();
       else if (e2.phone) document.getElementById(phoneId)?.focus();
+      else if (e2.preferredDate) document.getElementById(dateId)?.focus();
+      else if (e2.preferredTime) document.getElementById(timeId)?.focus();
       return;
     }
 
     setSubmitting(true);
 
-    const preferredAt =
-      preferredDate && preferredTime
-        ? new Date(`${preferredDate}T${preferredTime}`).toISOString()
-        : null;
+    const preferredAt = new Date(`${preferredDate}T${preferredTime}`).toISOString();
 
     const payload: CreateBookingPayload = {
       customer_name: name.trim(),
@@ -252,7 +259,7 @@ export default function CartPage() {
       clearCart();
       router.push(`/booking/confirmation/${data.id}`);
     } catch {
-      setServerError("שגיאת רשת — בדוק חיבור ונסה שוב.");
+      setServerError("שגיאת רשת - בדוק חיבור ונסה שוב.");
       setSubmitting(false);
     }
   }
@@ -349,7 +356,7 @@ export default function CartPage() {
                 <ServiceOption
                   id="service-lab"
                   label="השארה בחנות"
-                  description="הביא את המכשיר אלינו — נחזור אליך כשמוכן"
+                  description="הביא את המכשיר אלינו - נחזור אליך כשמוכן"
                   icon={Store}
                   selected={serviceType === "lab"}
                   onSelect={() => setServiceType("lab")}
@@ -357,7 +364,7 @@ export default function CartPage() {
                 <ServiceOption
                   id="service-tech"
                   label="טכנאי עד אליך"
-                  description="תוספת ₪150 — נגיע אליך לכתובת שתבחר"
+                  description="תוספת ₪150 - נגיע אליך לכתובת שתבחר"
                   icon={Truck}
                   selected={serviceType === "technician"}
                   onSelect={() => setServiceType("technician")}
@@ -375,58 +382,57 @@ export default function CartPage() {
                 className="text-sm font-semibold"
                 style={{ color: "#1d1d1f", letterSpacing: "0.196px" }}
               >
-                מועד מועדף לתיקון{" "}
-                <span className="font-normal text-xs" style={{ color: "rgba(0,0,0,0.45)" }}>
-                  (לא חובה)
-                </span>
+                מועד מועדף לתיקון
               </p>
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-medium" style={{ color: "#1d1d1f", letterSpacing: "0.196px" }}>
+                  <label htmlFor={dateId} className="text-sm font-medium" style={{ color: "#1d1d1f", letterSpacing: "0.196px" }}>
                     תאריך
                   </label>
-                  <div className="relative">
-                    <CalendarDays
-                      size={16}
-                      className="absolute top-1/2 -translate-y-1/2 right-3 pointer-events-none"
-                      style={{ color: "rgba(0,0,0,0.3)" }}
-                      aria-hidden
-                    />
-                    <input
-                      type="date"
-                      value={preferredDate}
-                      onChange={(e) => setPreferredDate(e.target.value)}
-                      min={new Date().toISOString().split("T")[0]}
-                      className={inputClass + " pr-10"}
-                      style={{ ...inputBase, colorScheme: "light" }}
-                      dir="ltr"
-                    />
-                  </div>
+                  <input
+                    id={dateId}
+                    type="date"
+                    value={preferredDate}
+                    onChange={(e) => {
+                      setPreferredDate(e.target.value);
+                      if (errors.preferredDate) setErrors((p) => ({ ...p, preferredDate: undefined }));
+                    }}
+                    min={new Date().toISOString().split("T")[0]}
+                    className={inputClass}
+                    style={{ ...(errors.preferredDate ? inputError : inputBase), colorScheme: "light" }}
+                    dir="ltr"
+                    aria-required="true"
+                    aria-invalid={!!errors.preferredDate}
+                  />
+                  {errors.preferredDate && (
+                    <p className="text-xs" style={{ color: "#e11d48" }}>{errors.preferredDate}</p>
+                  )}
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-medium" style={{ color: "#1d1d1f", letterSpacing: "0.196px" }}>
+                  <label htmlFor={timeId} className="text-sm font-medium" style={{ color: "#1d1d1f", letterSpacing: "0.196px" }}>
                     שעה
                   </label>
-                  <div className="relative">
-                    <Clock
-                      size={16}
-                      className="absolute top-1/2 -translate-y-1/2 right-3 pointer-events-none"
-                      style={{ color: "rgba(0,0,0,0.3)" }}
-                      aria-hidden
-                    />
-                    <input
-                      type="time"
-                      value={preferredTime}
-                      onChange={(e) => setPreferredTime(e.target.value)}
-                      className={inputClass + " pr-10"}
-                      style={{ ...inputBase, colorScheme: "light" }}
-                      dir="ltr"
-                    />
-                  </div>
+                  <input
+                    id={timeId}
+                    type="time"
+                    value={preferredTime}
+                    onChange={(e) => {
+                      setPreferredTime(e.target.value);
+                      if (errors.preferredTime) setErrors((p) => ({ ...p, preferredTime: undefined }));
+                    }}
+                    className={inputClass}
+                    style={{ ...(errors.preferredTime ? inputError : inputBase), colorScheme: "light" }}
+                    dir="ltr"
+                    aria-required="true"
+                    aria-invalid={!!errors.preferredTime}
+                  />
+                  {errors.preferredTime && (
+                    <p className="text-xs" style={{ color: "#e11d48" }}>{errors.preferredTime}</p>
+                  )}
                 </div>
               </div>
               <p className="text-xs" style={{ color: "rgba(0,0,0,0.45)" }}>
-                נשתדל לתאם לפי הבקשה שלך — נאשר בוואטסאפ
+                נשתדל לתאם לפי הבקשה שלך - נאשר בוואטסאפ
               </p>
             </section>
 
@@ -602,7 +608,7 @@ export default function CartPage() {
                 className="text-xs text-center"
                 style={{ color: "rgba(0,0,0,0.4)" }}
               >
-                לא נגבה תשלום עכשיו — נשלם בסיום התיקון בלבד
+                לא נגבה תשלום עכשיו - נשלם בסיום התיקון בלבד
               </p>
             </section>
 
