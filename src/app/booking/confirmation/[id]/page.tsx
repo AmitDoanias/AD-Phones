@@ -105,7 +105,7 @@ export default async function BookingConfirmationPage({ params }: Props) {
                   {isLab ? <Store size={13} /> : <Truck size={13} />}
                   {isLab ? "השארה בחנות" : "טכנאי עד אליך"}
                 </span>
-                {!isLab && <span>+ ₪50</span>}
+                {!isLab && <span>+ ₪150</span>}
               </div>
               <div className="flex justify-between">
                 <span className="text-sm font-semibold" style={{ color: "#1d1d1f" }}>

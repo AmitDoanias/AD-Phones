@@ -31,7 +31,7 @@ export const LEAD_STATUS_COLORS: Record<LeadStatus, string> = {
   closed: "bg-slate-100 text-slate-600",
 };
 
-export const TECHNICIAN_FEE_DEFAULT = 50; // ILS
+export const TECHNICIAN_FEE_DEFAULT = 150; // ILS
 
 export const BUSINESS_HOURS = {
   sun: { open: "09:00", close: "19:00" },

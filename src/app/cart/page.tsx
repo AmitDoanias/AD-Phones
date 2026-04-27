@@ -509,7 +509,7 @@ export default function CartPage() {
                       if (!phone.trim()) setErrors((p) => ({ ...p, phone: "נא להזין מספר טלפון" }));
                       else if (clean.length < 9) setErrors((p) => ({ ...p, phone: "מספר טלפון לא תקין" }));
                     }}
-                    placeholder="053-483-2573"
+                    placeholder="05X-XXX-XXXX"
                     className={inputClass + " pr-10"}
                     style={{ ...(errors.phone ? inputError : inputBase), touchAction: "manipulation" }}
                     aria-required="true"
