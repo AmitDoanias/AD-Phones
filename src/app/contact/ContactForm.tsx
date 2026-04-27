@@ -27,6 +27,7 @@ export default function ContactForm({ models }: Props) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
   const [loading, setLoading] = useState(false);
@@ -80,6 +81,7 @@ export default function ContactForm({ models }: Props) {
         body: JSON.stringify({
           name: name.trim() || undefined,
           phone: phone.trim(),
+          email: email.trim() || undefined,
           device: brand ?? undefined,
           appleType: appleType ?? undefined,
           modelId: selectedModel?.id ?? undefined,
@@ -127,7 +129,7 @@ export default function ContactForm({ models }: Props) {
             </p>
           </div>
           <button
-            onClick={() => { setSuccess(false); setName(""); setPhone(""); setMessage(""); setBrand(null); setAppleType(null); setSelectedModel(null); }}
+            onClick={() => { setSuccess(false); setName(""); setPhone(""); setEmail(""); setMessage(""); setBrand(null); setAppleType(null); setSelectedModel(null); }}
             className="text-sm font-medium hover:underline"
             style={{ color: "#0071e3" }}
           >
@@ -324,6 +326,26 @@ export default function ContactForm({ models }: Props) {
               onBlur={(e) => (e.target.style.borderColor = "rgba(0,0,0,0.15)")}
             />
           </div>
+        </div>
+
+        {/* Email (optional) */}
+        <div>
+          <label htmlFor="contact-email" className="block text-sm font-semibold mb-2" style={{ color: "#1d1d1f" }}>
+            אימייל <span className="font-normal text-xs" style={{ color: "rgba(0,0,0,0.4)" }}>(לא חובה - לקבלת אישור פנייה)</span>
+          </label>
+          <input
+            id="contact-email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="name@example.com"
+            autoComplete="email"
+            dir="ltr"
+            className="w-full px-4 py-3 rounded-[8px] text-sm outline-none transition-colors"
+            style={{ border: "1.5px solid rgba(0,0,0,0.15)", background: "#fff", color: "#1d1d1f", minHeight: 48, textAlign: "right" }}
+            onFocus={(e) => (e.target.style.borderColor = "#0071e3")}
+            onBlur={(e) => (e.target.style.borderColor = "rgba(0,0,0,0.15)")}
+          />
         </div>
 
         {/* Message */}

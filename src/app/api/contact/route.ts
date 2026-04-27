@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { sendContactEmail } from "@/lib/email";
+import { sendContactEmail, sendCustomerContactConfirmation } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, phone, device, appleType, modelId, modelName, message } = body as {
+    const { name, phone, email, device, appleType, modelId, modelName, message } = body as {
       name?: string;
       phone?: string;
+      email?: string;
       device?: string;
       appleType?: string;
       modelId?: string;
@@ -25,6 +26,7 @@ export async function POST(req: NextRequest) {
       source: "contact_form",
       customer_name: name?.trim() || null,
       customer_phone: phone.trim(),
+      customer_email: email?.trim() || null,
       form_data: {
         device: device ?? null,
         appleType: appleType ?? null,
@@ -48,7 +50,17 @@ export async function POST(req: NextRequest) {
       appleType: appleType ?? null,
       modelName: modelName ?? null,
       message: message?.trim() ?? null,
-    }).catch((err) => console.error("[contact] email send error:", err));
+    }).catch((err) => console.error("[contact] admin email send error:", err));
+
+    // Send confirmation to customer if they provided an email (non-blocking)
+    if (email?.trim()) {
+      sendCustomerContactConfirmation({
+        customerEmail: email.trim(),
+        customerName: name?.trim() || null,
+      }).catch((err) =>
+        console.error("[contact] customer email send error:", err)
+      );
+    }
 
     return NextResponse.json({ success: true }, { status: 201 });
   } catch (err) {

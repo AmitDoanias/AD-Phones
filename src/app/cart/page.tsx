@@ -11,6 +11,7 @@ import {
   Wrench,
   User,
   Phone,
+  Mail,
   MessageSquare,
   Store,
   Truck,
@@ -134,12 +135,14 @@ export default function CartPage() {
   const { items, total, removeItem, clearCart } = useCart();
   const nameId = useId();
   const phoneId = useId();
+  const emailId = useId();
   const notesId = useId();
   const dateId = useId();
   const timeId = useId();
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [serviceType, setServiceType] = useState<"lab" | "technician">("lab");
   const [notes, setNotes] = useState("");
   const [preferredDate, setPreferredDate] = useState("");
@@ -230,6 +233,7 @@ export default function CartPage() {
     const payload: CreateBookingPayload = {
       customer_name: name.trim(),
       customer_phone: phone.trim(),
+      customer_email: email.trim() || undefined,
       service_type: serviceType,
       notes: notes.trim() || undefined,
       preferred_at: preferredAt,
@@ -514,6 +518,33 @@ export default function CartPage() {
                     style={{ ...(errors.phone ? inputError : inputBase), touchAction: "manipulation" }}
                     aria-required="true"
                     aria-invalid={!!errors.phone}
+                    dir="ltr"
+                  />
+                </div>
+              </Field>
+
+              <Field
+                label="אימייל (לא חובה)"
+                id={emailId}
+                hint="לקבלת אישור הזמנה במייל"
+              >
+                <div className="relative">
+                  <Mail
+                    size={16}
+                    className="absolute top-1/2 -translate-y-1/2 right-3 pointer-events-none"
+                    style={{ color: "rgba(0,0,0,0.3)" }}
+                    aria-hidden
+                  />
+                  <input
+                    id={emailId}
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="name@example.com"
+                    className={inputClass + " pr-10"}
+                    style={{ ...inputBase, touchAction: "manipulation" }}
                     dir="ltr"
                   />
                 </div>

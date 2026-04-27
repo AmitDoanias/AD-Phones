@@ -2,8 +2,10 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM = process.env.CONTACT_EMAIL_FROM || "onboarding@resend.dev";
-const TO = process.env.CONTACT_EMAIL_TO || "info@ad-phones.com";
+const TO = process.env.CONTACT_EMAIL_TO || "info@ad-phones.co.il";
 const SITE_URL = "https://ad-phones.co.il";
+const BUSINESS_PHONE = "053-483-2573";
+const WHATSAPP_LINK = "https://wa.me/972534832573";
 
 type SendResult = { ok: boolean; error?: string };
 
@@ -144,6 +146,135 @@ export async function sendBookingEmail(data: {
     return { ok: true };
   } catch (err) {
     console.error("[email] sendBookingEmail threw:", err);
+    return { ok: false, error: err instanceof Error ? err.message : "unknown" };
+  }
+}
+
+// ─── Customer-facing confirmation emails ──────────────────────────────────
+
+export async function sendCustomerContactConfirmation(data: {
+  customerEmail: string;
+  customerName?: string | null;
+}): Promise<SendResult> {
+  const greeting = data.customerName ? `שלום ${data.customerName},` : "שלום,";
+
+  const html = `<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<body style="margin:0;padding:24px;background:#f5f5f7;font-family:-apple-system,BlinkMacSystemFont,'Heebo',sans-serif;">
+  <div style="max-width:560px;margin:0 auto;background:#fff;border-radius:12px;padding:32px;box-shadow:0 2px 10px rgba(0,0,0,0.06);">
+    <h1 style="margin:0 0 16px;color:#1d1d1f;font-size:22px;">תודה על פנייתך לאיי די פון!</h1>
+    <p style="margin:0 0 12px;color:#1d1d1f;font-size:15px;line-height:1.6;">${escapeHtml(greeting)}</p>
+    <p style="margin:0 0 16px;color:#1d1d1f;font-size:15px;line-height:1.6;">קיבלנו את ההודעה שלך ונחזור אליך בהקדם האפשרי.</p>
+    <p style="margin:0 0 24px;color:rgba(0,0,0,0.6);font-size:14px;line-height:1.6;">אם הפנייה דחופה - אפשר ליצור קשר ישירות:</p>
+    <div style="margin:0 0 24px;">
+      <a href="tel:+972534832573" style="display:inline-block;padding:10px 18px;margin-left:8px;background:#0071e3;color:#fff;text-decoration:none;border-radius:8px;font-size:14px;">📞 ${BUSINESS_PHONE}</a>
+      <a href="${WHATSAPP_LINK}" style="display:inline-block;padding:10px 18px;background:#25D366;color:#fff;text-decoration:none;border-radius:8px;font-size:14px;">💬 WhatsApp</a>
+    </div>
+    <hr style="border:none;border-top:1px solid #f0f0f0;margin:24px 0;">
+    <p style="margin:0;color:rgba(0,0,0,0.5);font-size:12px;line-height:1.6;">
+      A&D Phones · מעבדת תיקון סלולר<br>
+      מעגל השלום 3, ראשון לציון<br>
+      <a href="${SITE_URL}" style="color:#0071e3;text-decoration:none;">ad-phones.co.il</a>
+    </p>
+  </div>
+</body>
+</html>`;
+
+  try {
+    const { error } = await resend.emails.send({
+      from: FROM,
+      to: data.customerEmail,
+      subject: "תודה על פנייתך - איי די פון",
+      html,
+    });
+    if (error) {
+      console.error("[email] sendCustomerContactConfirmation failed:", error);
+      return { ok: false, error: error.message };
+    }
+    return { ok: true };
+  } catch (err) {
+    console.error("[email] sendCustomerContactConfirmation threw:", err);
+    return { ok: false, error: err instanceof Error ? err.message : "unknown" };
+  }
+}
+
+export async function sendCustomerBookingConfirmation(data: {
+  bookingId: string;
+  customerEmail: string;
+  customerName: string;
+  serviceType: "lab" | "technician";
+  total: number;
+  preferredAt: string | null;
+  items: Array<{ modelName: string; repairName: string; price: number }>;
+}): Promise<SendResult> {
+  const itemsHtml = data.items
+    .map(
+      (it) =>
+        `<tr><td style="padding:8px 0;border-bottom:1px solid #f0f0f0;color:#1d1d1f;font-size:14px;">${escapeHtml(it.modelName)} · ${escapeHtml(it.repairName)}</td><td style="padding:8px 0;border-bottom:1px solid #f0f0f0;color:#1d1d1f;font-size:14px;text-align:left;white-space:nowrap;">₪${it.price.toLocaleString("he-IL")}</td></tr>`
+    )
+    .join("");
+
+  const serviceTypeLabel =
+    data.serviceType === "technician" ? "טכנאי לבית/למשרד" : "השארה במעבדה";
+  const preferredAtLabel = data.preferredAt
+    ? new Date(data.preferredAt).toLocaleString("he-IL", { timeZone: "Asia/Jerusalem" })
+    : "—";
+
+  const html = `<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<body style="margin:0;padding:24px;background:#f5f5f7;font-family:-apple-system,BlinkMacSystemFont,'Heebo',sans-serif;">
+  <div style="max-width:600px;margin:0 auto;background:#fff;border-radius:12px;padding:32px;box-shadow:0 2px 10px rgba(0,0,0,0.06);">
+    <h1 style="margin:0 0 8px;color:#1d1d1f;font-size:22px;">תודה ${escapeHtml(data.customerName)}, ההזמנה התקבלה!</h1>
+    <p style="margin:0 0 24px;color:rgba(0,0,0,0.6);font-size:14px;">ניצור איתך קשר בקרוב לתיאום סופי.</p>
+
+    <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
+      ${row("סוג שירות:", serviceTypeLabel)}
+      ${row("מועד מבוקש:", preferredAtLabel)}
+    </table>
+
+    <h2 style="margin:24px 0 8px;color:#1d1d1f;font-size:16px;">פרטי ההזמנה:</h2>
+    <table style="width:100%;border-collapse:collapse;margin-bottom:16px;">
+      ${itemsHtml}
+      <tr><td style="padding:12px 0 0;font-weight:bold;color:#1d1d1f;font-size:15px;">סה"כ לתשלום (בסיום התיקון):</td><td style="padding:12px 0 0;font-weight:bold;color:#1d1d1f;font-size:15px;text-align:left;white-space:nowrap;">₪${data.total.toLocaleString("he-IL")}</td></tr>
+    </table>
+
+    <p style="margin:16px 0 24px;color:rgba(0,0,0,0.5);font-size:12px;line-height:1.6;">
+      * תשלום בסיום התיקון - לא נגבה עכשיו.<br>
+      * אחריות 90 יום על כל תיקון.
+    </p>
+
+    <a href="${SITE_URL}/booking/confirmation/${data.bookingId}" style="display:inline-block;padding:12px 20px;background:#0071e3;color:#fff;text-decoration:none;border-radius:8px;font-size:14px;margin-bottom:24px;">צפה בהזמנה באתר</a>
+
+    <hr style="border:none;border-top:1px solid #f0f0f0;margin:24px 0;">
+
+    <p style="margin:0 0 8px;color:#1d1d1f;font-size:14px;font-weight:600;">צריך לשנות משהו? צור קשר:</p>
+    <div style="margin:0 0 16px;">
+      <a href="tel:+972534832573" style="display:inline-block;padding:8px 14px;margin-left:8px;background:#0071e3;color:#fff;text-decoration:none;border-radius:6px;font-size:13px;">📞 ${BUSINESS_PHONE}</a>
+      <a href="${WHATSAPP_LINK}" style="display:inline-block;padding:8px 14px;background:#25D366;color:#fff;text-decoration:none;border-radius:6px;font-size:13px;">💬 WhatsApp</a>
+    </div>
+    <p style="margin:0;color:rgba(0,0,0,0.5);font-size:12px;line-height:1.6;">
+      A&D Phones · מעבדת תיקון סלולר<br>
+      מעגל השלום 3, ראשון לציון<br>
+      <a href="${SITE_URL}" style="color:#0071e3;text-decoration:none;">ad-phones.co.il</a>
+    </p>
+  </div>
+</body>
+</html>`;
+
+  try {
+    const { error } = await resend.emails.send({
+      from: FROM,
+      to: data.customerEmail,
+      subject: `אישור הזמנה - ₪${data.total.toLocaleString("he-IL")} - איי די פון`,
+      html,
+    });
+    if (error) {
+      console.error("[email] sendCustomerBookingConfirmation failed:", error);
+      return { ok: false, error: error.message };
+    }
+    return { ok: true };
+  } catch (err) {
+    console.error("[email] sendCustomerBookingConfirmation threw:", err);
     return { ok: false, error: err instanceof Error ? err.message : "unknown" };
   }
 }
