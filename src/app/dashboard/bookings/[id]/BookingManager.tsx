@@ -99,7 +99,7 @@ export default function BookingManager({
       repairList,
       scheduledText,
       "",
-      "לשאלות: 054-772-3281",
+      "לשאלות: 053-483-2573",
       "A&D Phones 🔧",
     ].join("\n").trim();
     return `https://wa.me/${intlPhone}?text=${encodeURIComponent(msg)}`;

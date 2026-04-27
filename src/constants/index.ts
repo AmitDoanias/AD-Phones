@@ -1,7 +1,7 @@
 import type { BookingStatus, LeadStatus } from "@/types";
 
 export const WHATSAPP_NUMBER =
-  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "972547723281";
+  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "972534832573";
 
 export const BOOKING_STATUS_LABELS: Record<BookingStatus, string> = {
   received: "חדש",

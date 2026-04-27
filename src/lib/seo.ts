@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 const SITE_NAME = "A&D Phones";
 const SITE_URL = "https://ad-phones.co.il";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.jpg`;
-const PHONE = "054-772-3281";
+const PHONE = "053-483-2573";
 const CITY = "ראשון לציון";
 const STREET_ADDRESS = "מעגל השלום 3";
 

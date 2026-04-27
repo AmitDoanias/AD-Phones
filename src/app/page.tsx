@@ -499,12 +499,12 @@ export default async function HomePage() {
                   <li className="flex items-center gap-3">
                     <Phone size={16} style={{ color: "rgba(255,255,255,0.5)" }} />
                     <a
-                      href="tel:+972547723281"
+                      href="tel:+972534832573"
                       className="hover:text-white transition-colors"
                       style={{ color: "rgba(255,255,255,0.8)" }}
                       dir="ltr"
                     >
-                      054-772-3281
+                      053-483-2573
                     </a>
                   </li>
                 </ul>

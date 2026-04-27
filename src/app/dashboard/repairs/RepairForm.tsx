@@ -349,7 +349,7 @@ export default function RepairForm({
               value={seoDescription}
               onChange={(e) => setSeoDescription(e.target.value)}
               rows={3}
-              placeholder='לדוגמה: "תיקון iPhone 16 Pro Max ברחובות - החלפת מסך, סוללה, מצלמה. שירות מהיר עם אחריות. 054-772-3281"'
+              placeholder='לדוגמה: "תיקון iPhone 16 Pro Max ברחובות - החלפת מסך, סוללה, מצלמה. שירות מהיר עם אחריות. 053-483-2573"'
               className="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none placeholder:text-muted-foreground"
             />
             <p className="text-xs text-muted-foreground">

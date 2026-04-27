@@ -201,7 +201,7 @@ export default function CartPage() {
     const cleanPhone = phone.replace(/\D/g, "");
     if (!phone.trim()) e.phone = "נא להזין מספר טלפון";
     else if (cleanPhone.length < 9 || cleanPhone.length > 11)
-      e.phone = "מספר טלפון לא תקין (למשל: 054-772-3281)";
+      e.phone = "מספר טלפון לא תקין (למשל: 053-483-2573)";
 
     if (!preferredDate) e.preferredDate = "נא לבחור תאריך";
     if (!preferredTime) e.preferredTime = "נא לבחור שעה";
@@ -509,7 +509,7 @@ export default function CartPage() {
                       if (!phone.trim()) setErrors((p) => ({ ...p, phone: "נא להזין מספר טלפון" }));
                       else if (clean.length < 9) setErrors((p) => ({ ...p, phone: "מספר טלפון לא תקין" }));
                     }}
-                    placeholder="054-772-3281"
+                    placeholder="053-483-2573"
                     className={inputClass + " pr-10"}
                     style={{ ...(errors.phone ? inputError : inputBase), touchAction: "manipulation" }}
                     aria-required="true"

@@ -406,8 +406,8 @@ function BusinessInfo() {
             </div>
             <div>
               <p className="text-xs font-medium mb-0.5" style={{ color: "rgba(0,0,0,0.45)" }}>טלפון</p>
-              <a href="tel:+972547723281" className="text-sm font-medium hover:text-[#0071e3] transition-colors" style={{ color: "#1d1d1f" }} dir="ltr">
-                054-772-3281
+              <a href="tel:+972534832573" className="text-sm font-medium hover:text-[#0071e3] transition-colors" style={{ color: "#1d1d1f" }} dir="ltr">
+                053-483-2573
               </a>
             </div>
           </li>

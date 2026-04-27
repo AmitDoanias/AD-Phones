@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { sendBookingEmail } from "@/lib/email";
 
 export type CreateBookingPayload = {
   customer_name: string;
@@ -132,6 +133,21 @@ export async function POST(req: NextRequest) {
       console.error("booking_items insert error:", itemsError);
       // Booking already created - return success so user isn't left hanging
     }
+
+    // Notify admin by email (non-blocking - don't fail the user request if email fails)
+    sendBookingEmail({
+      bookingId: booking.id,
+      customerName: customer_name.trim(),
+      customerPhone: customer_phone.trim(),
+      serviceType: service_type,
+      total: items_total + technician_fee,
+      preferredAt: preferred_at ?? null,
+      items: bookingItems.map((bi) => ({
+        modelName: bi.model_name,
+        repairName: bi.repair_name,
+        price: Number(bi.price_at_booking),
+      })),
+    }).catch((err) => console.error("[bookings] email send error:", err));
 
     return NextResponse.json({ id: booking.id }, { status: 201 });
   } catch {
