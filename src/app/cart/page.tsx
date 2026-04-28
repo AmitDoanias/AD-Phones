@@ -524,9 +524,8 @@ export default function CartPage() {
               </Field>
 
               <Field
-                label="אימייל (לא חובה)"
+                label="אימייל (אופציונלי)"
                 id={emailId}
-                hint="לקבלת אישור הזמנה במייל"
               >
                 <div className="relative">
                   <Mail

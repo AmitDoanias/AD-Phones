@@ -331,7 +331,7 @@ export default function ContactForm({ models }: Props) {
         {/* Email (optional) */}
         <div>
           <label htmlFor="contact-email" className="block text-sm font-semibold mb-2" style={{ color: "#1d1d1f" }}>
-            אימייל <span className="font-normal text-xs" style={{ color: "rgba(0,0,0,0.4)" }}>(לא חובה - לקבלת אישור פנייה)</span>
+            אימייל <span className="font-normal text-xs" style={{ color: "rgba(0,0,0,0.4)" }}>(אופציונלי)</span>
           </label>
           <input
             id="contact-email"
