@@ -130,3 +130,29 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* ── Accessibility toolbar effects ─────────────────────────────────────── */
+
+html.a11y-high-contrast {
+  filter: contrast(1.4);
+}
+html.a11y-high-contrast img,
+html.a11y-high-contrast video {
+  filter: contrast(1) !important;
+}
+
+html.a11y-highlight-links a,
+html.a11y-highlight-links button {
+  outline: 2px solid #0071e3 !important;
+  outline-offset: 2px;
+  text-decoration: underline !important;
+}
+
+html.a11y-pause-animations *,
+html.a11y-pause-animations *::before,
+html.a11y-pause-animations *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}

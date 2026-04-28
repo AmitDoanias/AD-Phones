@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Heebo } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/components/cart/CartProvider";
+import CookieBanner from "@/components/legal/CookieBanner";
+import AccessibilityToolbar from "@/components/legal/AccessibilityToolbar";
 
 const heebo = Heebo({
   variable: "--font-heebo",
@@ -65,6 +67,8 @@ export default function RootLayout({
     <html lang="he" dir="rtl" className={`${heebo.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-background text-foreground antialiased">
         <CartProvider>{children}</CartProvider>
+        <CookieBanner />
+        <AccessibilityToolbar />
       </body>
     </html>
   );

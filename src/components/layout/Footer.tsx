@@ -174,6 +174,33 @@ export default function Footer() {
                   שאלות נפוצות
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/privacy"
+                  className="transition-colors hover:text-[#0071e3]"
+                  style={linkStyle}
+                >
+                  מדיניות פרטיות
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/cookies"
+                  className="transition-colors hover:text-[#0071e3]"
+                  style={linkStyle}
+                >
+                  מדיניות עוגיות
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/accessibility"
+                  className="transition-colors hover:text-[#0071e3]"
+                  style={linkStyle}
+                >
+                  הצהרת נגישות
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
