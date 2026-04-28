@@ -189,7 +189,7 @@ export default function Footer() {
                   className="transition-colors hover:text-[#0071e3]"
                   style={linkStyle}
                 >
-                  מדיניות עוגיות
+                  Cookies
                 </Link>
               </li>
               <li>
