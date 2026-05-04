@@ -7,13 +7,12 @@ import AnimatedCard from "@/components/repairs/AnimatedCard";
 import BrandLogo from "@/components/ui/BrandLogo";
 import JsonLd from "@/components/seo/JsonLd";
 import HeroCarousel from "@/components/home/HeroCarousel";
-import TrustindexReviews from "@/components/home/TrustindexReviews";
+import ElfsightReviews from "@/components/home/ElfsightReviews";
 import CountUpStat from "@/components/home/CountUpStat";
 import FaqAccordion from "@/components/home/FaqAccordion";
 import PopularRepairs3D from "@/components/home/PopularRepairs3D";
-import { type Review } from "@/components/home/ReviewCard";
 import { createClient } from "@/lib/supabase/server";
-import { localBusinessSchema, faqSchema, reviewSchema } from "@/lib/seo";
+import { localBusinessSchema, faqSchema } from "@/lib/seo";
 import { FAQS } from "@/constants/faqs";
 import { WHATSAPP_NUMBER } from "@/constants";
 import {
@@ -22,33 +21,12 @@ import {
   Clock,
   MessageCircle,
   ChevronLeft,
+  BookOpen,
+  CalendarDays,
   Star,
 } from "lucide-react";
 
 export const revalidate = 3600;
-
-// ── Static reviews fallback ───────────────────────────────────────────────
-const STATIC_REVIEWS: Review[] = [
-  {
-    author_name: "משה כהן",
-    rating: 5,
-    text: "שירות מעולה! תיקנו לי את המסך תוך שעה במחיר הוגן. הטכנאי היה מקצועי ואדיב. ממליץ בחום!",
-    time: "2024-03-15",
-  },
-  {
-    author_name: "רחל לוי",
-    rating: 5,
-    text: "הגיע לביתי ותיקן את הסוללה מהר מאוד. מחיר שקוף ואמין, בלי הפתעות. בהחלט אחזור.",
-    time: "2024-02-20",
-  },
-  {
-    author_name: "דוד ברגר",
-    rating: 5,
-    text: "הגעתי עם אייפון שלא נדלק - יצאתי עם טלפון חדש תוך חצי שעה. מקצוענות ברמה אחרת!",
-    time: "2024-01-10",
-  },
-];
-
 
 // ── Stats for "Why us" ─────────────────────────────────────────────────────
 const STATS = [
@@ -75,17 +53,12 @@ export default async function HomePage() {
     .select("id, name, slug, icon_url")
     .order("sort_order");
 
-  let reviews: Review[] = STATIC_REVIEWS;
-  try {
-    const { data } = await supabase
-      .from("reviews_cache")
-      .select("author_name, rating, text, time, profile_photo")
-      .order("time", { ascending: false })
-      .limit(6);
-    if (data && data.length > 0) reviews = data as Review[];
-  } catch {
-    // static fallback
-  }
+  const { data: blogPosts } = await supabase
+    .from("blog_posts")
+    .select("title, slug, excerpt, cover_image_url, published_at")
+    .eq("is_published", true)
+    .order("published_at", { ascending: false })
+    .limit(3);
 
   // Fetch repair types with per-model pricing for Popular Repairs section
   const { data: repairTypesRaw } = await supabase
@@ -232,7 +205,7 @@ export default async function HomePage() {
                 ביקורות אמיתיות מלקוחות מרוצים
               </p>
             </div>
-            <TrustindexReviews />
+            <ElfsightReviews />
             <p className="text-center text-xs mt-6" style={{ color: "rgba(0,0,0,0.35)" }}>
               ביקורות מ-Google Reviews
             </p>
@@ -404,7 +377,94 @@ export default async function HomePage() {
         {/* ── 5. POPULAR REPAIRS (3D) ──────────────────────────────── */}
         <PopularRepairs3D repairTypes={repairTypes as any} />
 
-        {/* ── 6. BLOG (hidden until /blog routes are implemented) ─── */}
+        {/* ── 6. BLOG ──────────────────────────────────────────────── */}
+        {blogPosts && blogPosts.length > 0 && (
+          <section className="bg-[#f5f5f7] py-16 px-4">
+            <div className="max-w-5xl mx-auto">
+              <div className="flex items-end justify-between mb-10">
+                <div>
+                  <h2
+                    className="font-bold mb-1"
+                    style={{
+                      fontSize: "clamp(1.5rem, 4vw, 2.5rem)",
+                      lineHeight: 1.1,
+                      letterSpacing: "-0.28px",
+                      color: "#1d1d1f",
+                    }}
+                  >
+                    מהבלוג שלנו
+                  </h2>
+                  <p className="text-sm" style={{ color: "rgba(0,0,0,0.5)" }}>
+                    מדריכים וטיפים לתחזוקת הסלולר שלך
+                  </p>
+                </div>
+                <Link
+                  href="/blog"
+                  className="flex-shrink-0 text-sm font-medium hover:underline"
+                  style={{ color: "#0066cc", letterSpacing: "-0.224px" }}
+                >
+                  כל המאמרים ›
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                {blogPosts.map((post, i) => (
+                  <AnimatedCard key={post.slug} delay={i * 80}>
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="group block bg-white rounded-[12px] overflow-hidden h-full transition-shadow hover:shadow-[rgba(0,0,0,0.12)_0px_4px_20px_0px]"
+                      style={{ boxShadow: "rgba(0,0,0,0.08) 0px 2px 10px 0px" }}
+                    >
+                      <div
+                        className="relative w-full bg-[#f5f5f7] flex items-center justify-center overflow-hidden"
+                        style={{ height: 280 }}
+                      >
+                        {post.cover_image_url ? (
+                          <Image
+                            src={post.cover_image_url}
+                            alt={post.title}
+                            fill
+                            className="object-contain p-4"
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                          />
+                        ) : (
+                          <BookOpen size={32} style={{ color: "rgba(0,0,0,0.18)" }} />
+                        )}
+                      </div>
+                      <div className="p-5">
+                        <p
+                          className="font-semibold mb-2 leading-snug group-hover:text-[#0066cc] transition-colors"
+                          style={{ color: "#1d1d1f", letterSpacing: "0.196px" }}
+                        >
+                          {post.title}
+                        </p>
+                        {post.excerpt && (
+                          <p
+                            className="text-xs leading-relaxed mb-3 line-clamp-2"
+                            style={{ color: "rgba(0,0,0,0.55)" }}
+                          >
+                            {post.excerpt}
+                          </p>
+                        )}
+                        <div
+                          className="flex items-center gap-1.5 text-xs"
+                          style={{ color: "rgba(0,0,0,0.35)" }}
+                        >
+                          <CalendarDays size={11} />
+                          {post.published_at &&
+                            new Date(post.published_at).toLocaleDateString("he-IL", {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            })}
+                        </div>
+                      </div>
+                    </Link>
+                  </AnimatedCard>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* ── 7. FAQs ──────────────────────────────────────────────── */}
         <section id="faq" className="bg-[#1d1d1f] py-16 px-4 scroll-mt-20">
@@ -544,7 +604,6 @@ export default async function HomePage() {
       <WhatsAppFab />
       <JsonLd data={localBusinessSchema()} />
       <JsonLd data={faqSchema(FAQS)} />
-      {reviews.length > 0 && <JsonLd data={reviewSchema(reviews)} />}
     </>
   );
 }

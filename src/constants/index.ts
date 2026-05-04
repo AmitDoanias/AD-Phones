@@ -49,5 +49,6 @@ export const NAV_LINKS = [
   { href: "/", label: "ראשי" },
   { href: "/repairs", label: "תיקונים" },
   { href: "/about", label: "למה אנחנו" },
+  { href: "/blog", label: "בלוג" },
   { href: "/contact", label: "יצירת קשר" },
 ];

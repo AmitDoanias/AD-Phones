@@ -158,6 +158,15 @@ export default function Footer() {
                   צור קשר
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/blog"
+                  className="transition-colors hover:text-[#0071e3]"
+                  style={linkStyle}
+                >
+                  בלוג
+                </Link>
+              </li>
             </ul>
           </div>
 

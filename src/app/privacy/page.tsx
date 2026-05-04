@@ -131,7 +131,7 @@ export default function PrivacyPolicyPage() {
               <li><strong>Vercel Inc.</strong> - אירוח האתר ותשתית CDN. <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-[#0071e3] hover:underline">מדיניות פרטיות</a></li>
               <li><strong>Cloudinary Ltd.</strong> - אחסון תמונות. <a href="https://cloudinary.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#0071e3] hover:underline">מדיניות פרטיות</a></li>
               <li><strong>Resend Inc.</strong> - שליחת דואר אלקטרוני אוטומטי. <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-[#0071e3] hover:underline">מדיניות פרטיות</a></li>
-              <li><strong>Trustindex Kft.</strong> - הצגת ביקורות מ-Google. <a href="https://www.trustindex.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer" className="text-[#0071e3] hover:underline">מדיניות פרטיות</a></li>
+              <li><strong>Elfsight Limited</strong> - הצגת ביקורות מ-Google באתר. <a href="https://elfsight.com/privacy-policy/" target="_blank" rel="noopener noreferrer" className="text-[#0071e3] hover:underline">מדיניות פרטיות</a></li>
               <li><strong>Google LLC (Google Analytics)</strong> - אנליטיקה (לכשייושם, בכפוף להסכמה). <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#0071e3] hover:underline">מדיניות פרטיות</a></li>
               <li><strong>Meta Platforms Inc. (Facebook Pixel)</strong> - שיווק ופרסום (לכשייושם, בכפוף להסכמה). <a href="https://www.facebook.com/privacy/policy" target="_blank" rel="noopener noreferrer" className="text-[#0071e3] hover:underline">מדיניות פרטיות</a></li>
             </ul>

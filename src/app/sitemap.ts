@@ -17,26 +17,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/repairs/samsung`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${SITE_URL}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${SITE_URL}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE_URL}/cookies`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE_URL}/accessibility`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ];
 
-  const [{ data: brands }, { data: models }, { data: repairTypes }, { data: modelRepairs }] =
-    await Promise.all([
-      supabase.from("brands").select("slug"),
-      supabase
-        .from("models")
-        .select("slug, brands!inner(slug)")
-        .eq("is_active", true),
-      supabase.from("repair_types").select("slug"),
-      supabase
-        .from("model_repairs")
-        .select(
-          "is_active, repair_types!inner(slug), models!inner(slug, is_active, brands!inner(slug))"
-        )
-        .eq("is_active", true),
-    ]);
+  const [
+    { data: brands },
+    { data: models },
+    { data: repairTypes },
+    { data: modelRepairs },
+    { data: blogPosts },
+  ] = await Promise.all([
+    supabase.from("brands").select("slug"),
+    supabase
+      .from("models")
+      .select("slug, brands!inner(slug)")
+      .eq("is_active", true),
+    supabase.from("repair_types").select("slug"),
+    supabase
+      .from("model_repairs")
+      .select(
+        "is_active, repair_types!inner(slug), models!inner(slug, is_active, brands!inner(slug))"
+      )
+      .eq("is_active", true),
+    supabase
+      .from("blog_posts")
+      .select("slug, published_at, updated_at")
+      .eq("is_published", true),
+  ]);
 
   // Skip brands that have dedicated SEO pages above (samsung).
   const brandRoutes: MetadataRoute.Sitemap = (brands ?? [])
@@ -84,11 +94,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ];
   });
 
+  const blogRoutes: MetadataRoute.Sitemap = (blogPosts ?? []).map((p) => ({
+    url: `${SITE_URL}/blog/${p.slug}`,
+    lastModified: p.updated_at ? new Date(p.updated_at) : (p.published_at ? new Date(p.published_at) : now),
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
   return [
     ...staticRoutes,
     ...brandRoutes,
     ...modelRoutes,
     ...serviceRoutes,
     ...repairDetailRoutes,
+    ...blogRoutes,
   ];
 }
