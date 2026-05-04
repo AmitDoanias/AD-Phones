@@ -10,7 +10,7 @@ export default function WhatsAppFab() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="פנה אלינו בוואטסאפ"
-      className="fixed bottom-6 left-6 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 hover:shadow-xl transition-all duration-200"
+      className="fixed bottom-8 right-8 md:bottom-10 md:right-10 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 hover:shadow-xl transition-all duration-200"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

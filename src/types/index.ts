@@ -4,6 +4,7 @@ export type BookingStatus = "received" | "in_progress" | "done" | "cancelled";
 export type ServiceType = "lab" | "technician";
 export type LeadStatus = "new" | "contacted" | "converted" | "closed";
 export type PhotoType = "before" | "after";
+export type DeviceLine = "iphone" | "ipad" | "samsung";
 
 // ─── Catalog ──────────────────────────────────────────────────────────────────
 
@@ -164,4 +165,17 @@ export interface RepairPhoto {
   image_url: string;
   photo_type: PhotoType;
   created_at: string;
+}
+
+// ─── Line FAQs ────────────────────────────────────────────────────────────────
+
+export interface LineFaq {
+  id: string;
+  device_line: DeviceLine;
+  question: string;
+  answer: string;
+  sort_order: number;
+  is_published: boolean;
+  created_at: string;
+  updated_at: string;
 }

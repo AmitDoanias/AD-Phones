@@ -1,10 +1,10 @@
 import type { BookingStatus, LeadStatus } from "@/types";
 
 export const WHATSAPP_NUMBER =
-  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "972547723281";
+  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "972534832573";
 
 export const BOOKING_STATUS_LABELS: Record<BookingStatus, string> = {
-  received: "התקבלה",
+  received: "חדש",
   in_progress: "בטיפול",
   done: "הושלם",
   cancelled: "בוטל",
@@ -31,7 +31,7 @@ export const LEAD_STATUS_COLORS: Record<LeadStatus, string> = {
   closed: "bg-slate-100 text-slate-600",
 };
 
-export const TECHNICIAN_FEE_DEFAULT = 50; // ILS
+export const TECHNICIAN_FEE_DEFAULT = 150; // ILS
 
 export const BUSINESS_HOURS = {
   sun: { open: "09:00", close: "19:00" },
@@ -47,6 +47,8 @@ export const SLOT_DURATION_MIN = 30;
 
 export const NAV_LINKS = [
   { href: "/", label: "ראשי" },
-  { href: "/repairs", label: "תיקונים ומחירים" },
+  { href: "/repairs", label: "תיקונים" },
+  { href: "/about", label: "למה אנחנו" },
   { href: "/blog", label: "בלוג" },
+  { href: "/contact", label: "יצירת קשר" },
 ];
