@@ -67,12 +67,12 @@ export default async function BlogListPage() {
                   className="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center"
                   style={{ background: "rgba(0,0,0,0.04)" }}
                 >
-                  <BookOpen size={24} style={{ color: "rgba(0,0,0,0.4)" }} />
+                  <BookOpen size={24} style={{ color: "rgba(0,0,0,0.6)" }} />
                 </div>
                 <p className="font-semibold mb-1" style={{ color: "#1d1d1f" }}>
                   עוד אין פוסטים
                 </p>
-                <p className="text-sm" style={{ color: "rgba(0,0,0,0.5)" }}>
+                <p className="text-sm" style={{ color: "rgba(0,0,0,0.6)" }}>
                   בקרוב נעלה כאן מדריכים וטיפים מקצועיים.
                 </p>
               </div>
@@ -111,14 +111,14 @@ export default async function BlogListPage() {
                       {p.excerpt && (
                         <p
                           className="text-xs leading-relaxed mb-3 line-clamp-2"
-                          style={{ color: "rgba(0,0,0,0.55)" }}
+                          style={{ color: "rgba(0,0,0,0.6)" }}
                         >
                           {p.excerpt}
                         </p>
                       )}
                       <div
                         className="flex items-center gap-1.5 text-xs"
-                        style={{ color: "rgba(0,0,0,0.4)" }}
+                        style={{ color: "rgba(0,0,0,0.6)" }}
                       >
                         <CalendarDays size={11} />
                         {formatDate(p.published_at)}

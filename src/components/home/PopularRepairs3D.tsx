@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { interpolate } from "remotion";
+import { interpolate } from "@/lib/animation";
 import {
   Smartphone,
   Battery,

@@ -73,7 +73,7 @@ export default function LineRepairPage({
         {/* Model grid */}
         <section className="max-w-5xl mx-auto px-4 py-12">
           {models.length === 0 ? (
-            <p className="text-center text-[rgba(0,0,0,0.48)] py-10">
+            <p className="text-center text-[rgba(0,0,0,0.6)] py-10">
               אין דגמים זמינים כרגע
             </p>
           ) : (

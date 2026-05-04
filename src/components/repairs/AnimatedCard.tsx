@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { spring, interpolate } from "remotion";
+import { spring, interpolate } from "@/lib/animation";
 
 interface AnimatedCardProps {
   children: React.ReactNode;

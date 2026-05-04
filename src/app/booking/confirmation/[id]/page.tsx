@@ -71,7 +71,7 @@ export default async function BookingConfirmationPage({ params }: Props) {
             style={{ boxShadow: "rgba(0,0,0,0.08) 0px 2px 10px 0px" }}
           >
             <div className="px-5 py-3 border-b border-[#f5f5f7] flex items-center gap-2">
-              <Wrench size={15} style={{ color: "rgba(0,0,0,0.4)" }} />
+              <Wrench size={15} style={{ color: "rgba(0,0,0,0.6)" }} />
               <p className="text-sm font-semibold" style={{ color: "#1d1d1f", letterSpacing: "0.196px" }}>
                 סיכום הזמנה
               </p>
@@ -86,7 +86,7 @@ export default async function BookingConfirmationPage({ params }: Props) {
                       <p className="text-sm font-medium" style={{ color: "#1d1d1f" }}>
                         {item.repair_name}
                       </p>
-                      <p className="text-xs mt-0.5" style={{ color: "rgba(0,0,0,0.5)" }}>
+                      <p className="text-xs mt-0.5" style={{ color: "rgba(0,0,0,0.6)" }}>
                         {item.model_name}
                       </p>
                     </div>
@@ -115,7 +115,7 @@ export default async function BookingConfirmationPage({ params }: Props) {
                   ₪{booking.total_price}
                 </span>
               </div>
-              <p className="text-xs" style={{ color: "rgba(0,0,0,0.4)" }}>
+              <p className="text-xs" style={{ color: "rgba(0,0,0,0.6)" }}>
                 * תשלום בסיום התיקון - לא נגבה עכשיו
               </p>
             </div>

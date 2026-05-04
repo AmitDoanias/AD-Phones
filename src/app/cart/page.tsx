@@ -54,7 +54,7 @@ function Field({
       </label>
       {children}
       {hint && !error && (
-        <p className="text-xs" style={{ color: "rgba(0,0,0,0.48)" }}>
+        <p className="text-xs" style={{ color: "rgba(0,0,0,0.6)" }}>
           {hint}
         </p>
       )}
@@ -300,7 +300,7 @@ export default function CartPage() {
               aria-label="סיכום סל"
             >
               <div className="px-5 py-3 flex items-center gap-2 border-b border-[#f5f5f7]">
-                <Wrench size={15} style={{ color: "rgba(0,0,0,0.4)" }} />
+                <Wrench size={15} style={{ color: "rgba(0,0,0,0.6)" }} />
                 <p
                   className="text-sm font-semibold"
                   style={{ color: "#1d1d1f", letterSpacing: "0.196px" }}
@@ -318,7 +318,7 @@ export default function CartPage() {
                       <p className="text-sm font-medium truncate" style={{ color: "#1d1d1f" }}>
                         {item.repairName}
                       </p>
-                      <p className="text-xs mt-0.5 truncate" style={{ color: "rgba(0,0,0,0.5)" }}>
+                      <p className="text-xs mt-0.5 truncate" style={{ color: "rgba(0,0,0,0.6)" }}>
                         {item.brandName} {item.modelName}
                       </p>
                     </div>
@@ -435,7 +435,7 @@ export default function CartPage() {
                   )}
                 </div>
               </div>
-              <p className="text-xs" style={{ color: "rgba(0,0,0,0.45)" }}>
+              <p className="text-xs" style={{ color: "rgba(0,0,0,0.6)" }}>
                 נשתדל לתאם לפי הבקשה שלך - נאשר בוואטסאפ
               </p>
             </section>
@@ -636,7 +636,7 @@ export default function CartPage() {
 
               <p
                 className="text-xs text-center"
-                style={{ color: "rgba(0,0,0,0.4)" }}
+                style={{ color: "rgba(0,0,0,0.6)" }}
               >
                 לא נגבה תשלום עכשיו - נשלם בסיום התיקון בלבד
               </p>

@@ -65,7 +65,7 @@ export default function ServiceModelList({ entries, repairName, repairSlug }: Pr
         className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white w-full max-w-[360px] mx-auto"
         style={{ boxShadow: "rgba(0,0,0,0.05) 0px 1px 6px 0px" }}
       >
-        <Search size={13} style={{ color: "rgba(0,0,0,0.4)" }} />
+        <Search size={13} style={{ color: "rgba(0,0,0,0.6)" }} />
         <input
           type="text"
           placeholder="חיפוש דגם..."
@@ -74,7 +74,7 @@ export default function ServiceModelList({ entries, repairName, repairSlug }: Pr
           className="flex-1 bg-transparent text-[12px] outline-none placeholder:text-[12px]"
           style={{ letterSpacing: "-0.1px", color: "#1d1d1f" }}
         />
-        <span className="text-[10px]" style={{ color: "rgba(0,0,0,0.35)" }}>
+        <span className="text-[10px]" style={{ color: "rgba(0,0,0,0.6)" }}>
           {filtered.length} דגמים
         </span>
       </div>
@@ -84,7 +84,7 @@ export default function ServiceModelList({ entries, repairName, repairSlug }: Pr
           className="bg-white rounded-[16px] p-10 text-center"
           style={{ boxShadow: "rgba(0,0,0,0.06) 0px 2px 10px 0px" }}
         >
-          <p style={{ color: "rgba(0,0,0,0.48)" }}>
+          <p style={{ color: "rgba(0,0,0,0.6)" }}>
             לא נמצאו דגמים עבור חיפוש זה
           </p>
         </div>
@@ -94,12 +94,12 @@ export default function ServiceModelList({ entries, repairName, repairSlug }: Pr
             <div className="flex items-center gap-2 px-1">
               <span
                 className="text-[11px] font-semibold tracking-widest uppercase"
-                style={{ color: "rgba(0,0,0,0.48)" }}
+                style={{ color: "rgba(0,0,0,0.6)" }}
               >
                 {group.brandName}
               </span>
               <div className="flex-1 h-px" style={{ background: "rgba(0,0,0,0.08)" }} />
-              <span className="text-[11px]" style={{ color: "rgba(0,0,0,0.4)" }}>
+              <span className="text-[11px]" style={{ color: "rgba(0,0,0,0.6)" }}>
                 {group.items.length} דגמים
               </span>
             </div>

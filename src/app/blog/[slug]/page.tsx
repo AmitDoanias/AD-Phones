@@ -173,7 +173,7 @@ export default async function BlogPostPage({
             {/* Breadcrumb */}
             <nav
               className="flex items-center gap-1 mb-5 text-xs"
-              style={{ color: "rgba(0,0,0,0.55)" }}
+              style={{ color: "rgba(0,0,0,0.6)" }}
               aria-label="breadcrumb"
             >
               <Link href="/" className="hover:underline">ראשי</Link>
@@ -203,7 +203,7 @@ export default async function BlogPostPage({
               </h1>
               <div
                 className="flex items-center gap-1.5 text-xs mb-7"
-                style={{ color: "rgba(0,0,0,0.5)" }}
+                style={{ color: "rgba(0,0,0,0.6)" }}
               >
                 <CalendarDays size={12} />
                 {formatDate(post.published_at)}
@@ -279,14 +279,14 @@ export default async function BlogPostPage({
                       {p.excerpt && (
                         <p
                           className="text-xs leading-relaxed line-clamp-2"
-                          style={{ color: "rgba(0,0,0,0.55)" }}
+                          style={{ color: "rgba(0,0,0,0.6)" }}
                         >
                           {p.excerpt}
                         </p>
                       )}
                       <div
                         className="flex items-center gap-1.5 text-xs mt-3"
-                        style={{ color: "rgba(0,0,0,0.4)" }}
+                        style={{ color: "rgba(0,0,0,0.6)" }}
                       >
                         <CalendarDays size={11} />
                         {formatDate(p.published_at)}

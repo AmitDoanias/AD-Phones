@@ -21,7 +21,7 @@ export default function BlogPostBody({ content }: Props) {
 
   if (format === "html" ? !html : !markdown) {
     return (
-      <p className="text-sm" style={{ color: "rgba(0,0,0,0.5)" }}>
+      <p className="text-sm" style={{ color: "rgba(0,0,0,0.6)" }}>
         אין תוכן לפוסט זה.
       </p>
     );
@@ -203,7 +203,7 @@ export default function BlogPostBody({ content }: Props) {
                 {alt && (
                   <span
                     className="block text-center mt-2 text-xs"
-                    style={{ color: "rgba(0,0,0,0.4)" }}
+                    style={{ color: "rgba(0,0,0,0.6)" }}
                   >
                     {alt}
                   </span>

@@ -50,7 +50,7 @@ export default async function RepairsIndexPage() {
         {/* Brand grid */}
         <section className="max-w-5xl mx-auto px-4 py-14">
           {!brands || brands.length === 0 ? (
-            <p className="text-center text-[rgba(0,0,0,0.48)] py-20">
+            <p className="text-center text-[rgba(0,0,0,0.6)] py-20">
               אין מותגים זמינים כרגע
             </p>
           ) : (

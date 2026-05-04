@@ -182,11 +182,11 @@ export default function AccessibilityPage() {
               החברה מקיימת בדיקות נגישות תקופתיות, מטמיעה תיקונים ופועלת לשיפור הרציף של חוויית המשתמש לכלל המשתמשים. הצהרת נגישות זו תעודכן בהתאם לעדכוני האתר ולהתפתחות תקני הנגישות.
             </p>
 
-            <p className="mt-10 pt-6 text-xs" style={{ color: "rgba(0,0,0,0.5)", borderTop: "1px solid #f0f0f0" }}>
+            <p className="mt-10 pt-6 text-xs" style={{ color: "rgba(0,0,0,0.6)", borderTop: "1px solid #f0f0f0" }}>
               <strong>גילוי נאות:</strong> הצהרה זו מהווה תיאור עכשווי של מצב הנגישות באתר ואינה מהווה ייעוץ משפטי. במידה ותרצה לקבל ייעוץ נגישות מקצועי, או נדרשת התאמת התקן לסוג עיסוק מיוחד, מומלץ להתייעץ עם מורשה נגישות שירות מטעם הרשות לזכויות אנשים עם מוגבלות.
             </p>
 
-            <p className="mt-6 text-sm" style={{ color: "rgba(0,0,0,0.5)" }}>
+            <p className="mt-6 text-sm" style={{ color: "rgba(0,0,0,0.6)" }}>
               לקריאה נוספת:{" "}
               <a href="/privacy" className="text-[#0071e3] hover:underline">מדיניות פרטיות</a>
               {" · "}

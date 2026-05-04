@@ -225,15 +225,15 @@ export default function PrivacyPolicyPage() {
               <li>טלפון: <a href="tel:+972534832573" className="text-[#0071e3] hover:underline" dir="ltr">053-483-2573</a></li>
               <li>כתובת למשלוח: מעגל השלום 3, ראשון לציון</li>
             </ul>
-            <p className="text-xs mt-6 mb-2" style={{ color: "rgba(0,0,0,0.5)" }}>
+            <p className="text-xs mt-6 mb-2" style={{ color: "rgba(0,0,0,0.6)" }}>
               נציין כי באפשרותך גם לפנות בתלונה ל<a href="https://www.gov.il/he/departments/the_privacy_protection_authority" target="_blank" rel="noopener noreferrer" className="text-[#0071e3] hover:underline">רשות להגנת הפרטיות</a> במשרד המשפטים.
             </p>
 
-            <p className="mt-10 pt-6 text-xs" style={{ color: "rgba(0,0,0,0.5)", borderTop: "1px solid #f0f0f0" }}>
+            <p className="mt-10 pt-6 text-xs" style={{ color: "rgba(0,0,0,0.6)", borderTop: "1px solid #f0f0f0" }}>
               <strong>גילוי נאות:</strong> מסמך זה הוכן בנוסח כללי על בסיס דרישות חוק הגנת הפרטיות וההיכרות שלנו עם פעילות החברה. הוא אינו מהווה ייעוץ משפטי. במקרה של ספק או תיקון נדרש, מומלץ להתייעץ עם עורך דין המתמחה בדיני פרטיות ומסחר אלקטרוני.
             </p>
 
-            <p className="mt-6 text-sm" style={{ color: "rgba(0,0,0,0.5)" }}>
+            <p className="mt-6 text-sm" style={{ color: "rgba(0,0,0,0.6)" }}>
               לקריאה נוספת ראה גם:{" "}
               <a href="/cookies" className="text-[#0071e3] hover:underline">Cookies</a>
               {" · "}

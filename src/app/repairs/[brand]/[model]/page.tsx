@@ -334,7 +334,7 @@ export default async function ModelPage({ params }: Props) {
               className="bg-white rounded-[16px] p-10 text-center"
               style={{ boxShadow: "rgba(0,0,0,0.08) 0px 6px 24px 0px" }}
             >
-              <p style={{ color: "rgba(0,0,0,0.48)" }}>
+              <p style={{ color: "rgba(0,0,0,0.6)" }}>
                 אין תיקונים זמינים לדגם זה כרגע
               </p>
               <Link
@@ -349,7 +349,7 @@ export default async function ModelPage({ params }: Props) {
               <div className="flex items-baseline justify-between mb-4 px-1">
                 <h3
                   className="text-[11px] font-semibold uppercase tracking-widest"
-                  style={{ color: "rgba(0,0,0,0.48)" }}
+                  style={{ color: "rgba(0,0,0,0.6)" }}
                 >
                   תיקונים ומחירים
                 </h3>
@@ -405,7 +405,7 @@ export default async function ModelPage({ params }: Props) {
                         </Link>
                         <p
                           className="text-[12px] mb-5"
-                          style={{ color: "rgba(0,0,0,0.48)" }}
+                          style={{ color: "rgba(0,0,0,0.6)" }}
                         >
                           אחריות 90 יום · חלק מקורי
                         </p>

@@ -137,7 +137,7 @@ export default function AccessibilityToolbar() {
               onClick={() => setOpen(false)}
               aria-label="סגור"
               className="p-1 rounded hover:bg-black/5"
-              style={{ color: "rgba(0,0,0,0.5)" }}
+              style={{ color: "rgba(0,0,0,0.6)" }}
             >
               <X size={16} />
             </button>
@@ -206,7 +206,7 @@ export default function AccessibilityToolbar() {
             איפוס
           </button>
 
-          <p className="text-xs text-center mt-3" style={{ color: "rgba(0,0,0,0.4)" }}>
+          <p className="text-xs text-center mt-3" style={{ color: "rgba(0,0,0,0.6)" }}>
             <Link href="/accessibility" className="underline" style={{ color: "#0071e3" }}>
               הצהרת נגישות
             </Link>
@@ -234,7 +234,7 @@ function ToggleRow({
       className="w-full flex items-center gap-3 p-3 rounded-[10px] transition-colors hover:bg-black/[0.03]"
       style={{ background: "#f5f5f7" }}
     >
-      <span style={{ color: "rgba(0,0,0,0.5)" }}>{icon}</span>
+      <span style={{ color: "rgba(0,0,0,0.6)" }}>{icon}</span>
       <span className="flex-1 text-right text-sm" style={{ color: "#1d1d1f" }}>
         {label}
       </span>

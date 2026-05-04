@@ -323,7 +323,7 @@ export default async function RepairDetailPage({ params }: Props) {
               <div className="flex items-baseline justify-between mb-4 px-1">
                 <h2
                   className="text-[11px] font-semibold uppercase tracking-widest"
-                  style={{ color: "rgba(0,0,0,0.48)" }}
+                  style={{ color: "rgba(0,0,0,0.6)" }}
                 >
                   תיקונים נוספים ל-{model.name}
                 </h2>
@@ -351,7 +351,7 @@ export default async function RepairDetailPage({ params }: Props) {
                         </p>
                         <p
                           className="text-[12px] mt-0.5"
-                          style={{ color: "rgba(0,0,0,0.48)" }}
+                          style={{ color: "rgba(0,0,0,0.6)" }}
                         >
                           אחריות 90 יום
                         </p>
