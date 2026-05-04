@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { interpolate } from "@/lib/animation";
 import {
   Smartphone,
@@ -70,23 +70,28 @@ function Repair3DCard({
       : null;
   const modelCount = repair.model_repairs.length;
 
-  // 3D transforms based on distance from viewport center
-  const cardCenter = (index + 0.5) / totalCards;
-  const distance = scrollProgress - cardCenter;
-
-  const rotateY = interpolate(distance, [-0.4, 0, 0.4], [15, 0, -15], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-  const scale = interpolate(Math.abs(distance), [0, 0.25, 0.5], [1, 0.96, 0.9], {
-    extrapolateRight: "clamp",
-  });
-  const translateZ = interpolate(Math.abs(distance), [0, 0.25, 0.5], [0, -15, -40], {
-    extrapolateRight: "clamp",
-  });
-  const cardOpacity = interpolate(Math.abs(distance), [0, 0.35, 0.6], [1, 0.9, 0.65], {
-    extrapolateRight: "clamp",
-  });
+  // 3D transforms based on distance from viewport center.
+  // Memoized so desktop (where scrollProgress is fixed at 0.5) computes once
+  // per card rather than on every render.
+  const { rotateY, scale, translateZ, cardOpacity } = useMemo(() => {
+    const cardCenter = (index + 0.5) / totalCards;
+    const distance = scrollProgress - cardCenter;
+    return {
+      rotateY: interpolate(distance, [-0.4, 0, 0.4], [15, 0, -15], {
+        extrapolateLeft: "clamp",
+        extrapolateRight: "clamp",
+      }),
+      scale: interpolate(Math.abs(distance), [0, 0.25, 0.5], [1, 0.96, 0.9], {
+        extrapolateRight: "clamp",
+      }),
+      translateZ: interpolate(Math.abs(distance), [0, 0.25, 0.5], [0, -15, -40], {
+        extrapolateRight: "clamp",
+      }),
+      cardOpacity: interpolate(Math.abs(distance), [0, 0.35, 0.6], [1, 0.9, 0.65], {
+        extrapolateRight: "clamp",
+      }),
+    };
+  }, [index, scrollProgress, totalCards]);
 
   return (
     <Link

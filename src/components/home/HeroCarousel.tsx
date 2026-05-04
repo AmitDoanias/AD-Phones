@@ -15,8 +15,14 @@ export default function HeroCarousel() {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) return;
 
+    let cycles = 0;
     const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % SLIDES.length);
+      setCurrent((prev) => {
+        const next = (prev + 1) % SLIDES.length;
+        if (next === 0) cycles++;
+        if (cycles >= 2) clearInterval(timer);
+        return next;
+      });
     }, 3500);
     return () => clearInterval(timer);
   }, []);
