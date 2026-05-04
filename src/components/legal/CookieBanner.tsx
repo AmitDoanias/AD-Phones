@@ -18,8 +18,8 @@ export default function CookieBanner() {
   }, []);
 
   useEffect(() => {
-    const handler = () => setView(null);
-    window.addEventListener("cookie-consent-open-preferences", () => setView("preferences"));
+    const handler = () => setView("preferences");
+    window.addEventListener("cookie-consent-open-preferences", handler);
     return () => window.removeEventListener("cookie-consent-open-preferences", handler);
   }, []);
 
