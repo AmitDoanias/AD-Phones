@@ -220,11 +220,11 @@ export default function CookiesPolicyPage() {
               <li>טלפון: <a href="tel:+972534832573" className="text-[#0071e3] hover:underline" dir="ltr">053-483-2573</a></li>
             </ul>
 
-            <p className="mt-10 pt-6 text-xs" style={{ color: "rgba(0,0,0,0.5)", borderTop: "1px solid #f0f0f0" }}>
+            <p className="mt-10 pt-6 text-xs" style={{ color: "rgba(0,0,0,0.6)", borderTop: "1px solid #f0f0f0" }}>
               <strong>גילוי נאות:</strong> מסמך זה מהווה תיאור כללי של נוהלינו ואינו מהווה ייעוץ משפטי. למידע מלא על זכויותיך ראה את <a href="/privacy" className="text-[#0071e3] hover:underline">מדיניות הפרטיות</a>. בכל ספק - מומלץ להיוועץ בעורך דין.
             </p>
 
-            <p className="mt-6 text-sm" style={{ color: "rgba(0,0,0,0.5)" }}>
+            <p className="mt-6 text-sm" style={{ color: "rgba(0,0,0,0.6)" }}>
               לקריאה נוספת:{" "}
               <a href="/privacy" className="text-[#0071e3] hover:underline">מדיניות פרטיות</a>
               {" · "}

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { sanitizeBlogHtml } from "@/lib/htmlSanitizer";
 
 export type BlogContent = {
   format?: "markdown" | "html";
@@ -20,19 +21,21 @@ export default function BlogPostBody({ content }: Props) {
 
   if (format === "html" ? !html : !markdown) {
     return (
-      <p className="text-sm" style={{ color: "rgba(0,0,0,0.5)" }}>
+      <p className="text-sm" style={{ color: "rgba(0,0,0,0.6)" }}>
         אין תוכן לפוסט זה.
       </p>
     );
   }
 
   if (format === "html") {
-    // HTML is pre-sanitized at API save time (src/lib/htmlSanitizer.ts).
+    // Saved posts are sanitized at API save time. Re-sanitize here so the
+    // editor preview (which renders unsaved input) is also safe.
+    const safe = sanitizeBlogHtml(html);
     return (
       <div
         className="blog-content blog-html-content"
         dir="rtl"
-        dangerouslySetInnerHTML={{ __html: html }}
+        dangerouslySetInnerHTML={{ __html: safe }}
       />
     );
   }
@@ -200,7 +203,7 @@ export default function BlogPostBody({ content }: Props) {
                 {alt && (
                   <span
                     className="block text-center mt-2 text-xs"
-                    style={{ color: "rgba(0,0,0,0.4)" }}
+                    style={{ color: "rgba(0,0,0,0.6)" }}
                   >
                     {alt}
                   </span>

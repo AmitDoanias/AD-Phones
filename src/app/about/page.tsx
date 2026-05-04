@@ -125,7 +125,7 @@ export default function AboutPage() {
                     >
                       {s.value}
                     </p>
-                    <p className="text-xs" style={{ color: "rgba(0,0,0,0.5)" }}>
+                    <p className="text-xs" style={{ color: "rgba(0,0,0,0.6)" }}>
                       {s.label}
                     </p>
                   </div>
@@ -150,7 +150,7 @@ export default function AboutPage() {
               >
                 למה לבחור בנו?
               </h2>
-              <p className="text-sm" style={{ color: "rgba(0,0,0,0.5)" }}>
+              <p className="text-sm" style={{ color: "rgba(0,0,0,0.6)" }}>
                 שלושה עקרונות שמבדילים אותנו מכל מעבדה אחרת
               </p>
             </div>
@@ -215,7 +215,7 @@ export default function AboutPage() {
               <p
                 className="text-base mx-auto"
                 style={{
-                  color: "rgba(0,0,0,0.55)",
+                  color: "rgba(0,0,0,0.6)",
                   letterSpacing: "-0.224px",
                   maxWidth: 480,
                   lineHeight: 1.5,

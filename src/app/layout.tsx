@@ -8,7 +8,7 @@ import AccessibilityToolbar from "@/components/legal/AccessibilityToolbar";
 const heebo = Heebo({
   variable: "--font-heebo",
   subsets: ["hebrew", "latin"],
-  weight: ["300", "400", "500", "700", "900"],
+  weight: ["300", "400", "500", "700"],
   display: "swap",
 });
 

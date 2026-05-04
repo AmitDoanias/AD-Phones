@@ -74,7 +74,7 @@ export default function BrandModelGrid({ models, brandSlug, brandName, showLineT
       {/* Model grid */}
       {visible.length === 0 ? (
         <div className="py-16 text-center">
-          <p style={{ color: "rgba(0,0,0,0.48)" }}>אין דגמים זמינים בקטגוריה זו</p>
+          <p style={{ color: "rgba(0,0,0,0.6)" }}>אין דגמים זמינים בקטגוריה זו</p>
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">

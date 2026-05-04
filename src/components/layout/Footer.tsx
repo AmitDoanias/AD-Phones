@@ -55,16 +55,16 @@ export default function Footer() {
               height={40}
               className="h-10 w-auto mb-4"
             />
-            <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(0,0,0,0.55)" }}>
+            <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(0,0,0,0.6)" }}>
               תיקון מקצועי לאייפון, אייפד וסמסונג. שירות מהיר, אמין ובמחיר הוגן.
             </p>
             <ul className="space-y-2 text-sm mb-4" style={{ color: "rgba(0,0,0,0.6)" }}>
               <li className="flex items-start gap-2">
-                <MapPin size={14} className="flex-shrink-0 mt-0.5" style={{ color: "rgba(0,0,0,0.45)" }} />
+                <MapPin size={14} className="flex-shrink-0 mt-0.5" style={{ color: "rgba(0,0,0,0.6)" }} />
                 <span>מעגל השלום 3, ראשון לציון</span>
               </li>
               <li className="flex items-center gap-2">
-                <Phone size={14} style={{ color: "rgba(0,0,0,0.45)" }} />
+                <Phone size={14} style={{ color: "rgba(0,0,0,0.6)" }} />
                 <a
                   href="tel:+972534832573"
                   className="hover:text-[#0071e3] transition-colors"
@@ -74,7 +74,7 @@ export default function Footer() {
                 </a>
               </li>
               <li className="flex items-start gap-2">
-                <Clock size={14} className="flex-shrink-0 mt-0.5" style={{ color: "rgba(0,0,0,0.45)" }} />
+                <Clock size={14} className="flex-shrink-0 mt-0.5" style={{ color: "rgba(0,0,0,0.6)" }} />
                 <span>
                   א&apos;–ה&apos; 09:00–19:00
                   <br />
@@ -87,7 +87,7 @@ export default function Footer() {
                 href="#"
                 aria-label="Facebook"
                 className="transition-colors hover:text-[#0071e3]"
-                style={{ color: "rgba(0,0,0,0.45)" }}
+                style={{ color: "rgba(0,0,0,0.6)" }}
               >
                 <FacebookIcon size={18} />
               </a>
@@ -95,7 +95,7 @@ export default function Footer() {
                 href="#"
                 aria-label="Instagram"
                 className="transition-colors hover:text-[#0071e3]"
-                style={{ color: "rgba(0,0,0,0.45)" }}
+                style={{ color: "rgba(0,0,0,0.6)" }}
               >
                 <InstagramIcon size={18} />
               </a>
@@ -220,7 +220,7 @@ export default function Footer() {
         >
           <p
             className="text-center text-xs leading-relaxed max-w-3xl mx-auto"
-            style={{ color: "rgba(0,0,0,0.45)" }}
+            style={{ color: "rgba(0,0,0,0.6)" }}
           >
             <span className="font-medium" style={{ color: "rgba(0,0,0,0.6)" }}>
               שירות לכל המרכז:
@@ -229,7 +229,7 @@ export default function Footer() {
           </p>
           <p
             className="text-center text-xs"
-            style={{ color: "rgba(0,0,0,0.35)" }}
+            style={{ color: "rgba(0,0,0,0.6)" }}
           >
             &copy; {new Date().getFullYear()} AD Phones. כל הזכויות שמורות.
           </p>

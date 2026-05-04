@@ -122,7 +122,7 @@ export default function ContactForm({ models }: Props) {
             <h2 className="font-bold mb-2" style={{ fontSize: "1.25rem", color: "#1d1d1f", letterSpacing: "-0.12px" }}>
               הפנייה נשלחה!
             </h2>
-            <p className="text-sm leading-relaxed" style={{ color: "rgba(0,0,0,0.55)" }}>
+            <p className="text-sm leading-relaxed" style={{ color: "rgba(0,0,0,0.6)" }}>
               קיבלנו את הפנייה שלך ונחזור אליך בהקדם.
               <br />
               בינתיים, אפשר גם לשלוח לנו הודעה ב-WhatsApp.
@@ -216,14 +216,14 @@ export default function ContactForm({ models }: Props) {
                 style={{
                   border: "1.5px solid rgba(0,0,0,0.15)",
                   background: "#fff",
-                  color: selectedModel ? "#1d1d1f" : "rgba(0,0,0,0.35)",
+                  color: selectedModel ? "#1d1d1f" : "rgba(0,0,0,0.6)",
                   minHeight: 48,
                 }}
               >
                 <ChevronDown
                   size={16}
                   style={{
-                    color: "rgba(0,0,0,0.4)",
+                    color: "rgba(0,0,0,0.6)",
                     transform: dropdownOpen ? "rotate(180deg)" : "rotate(0deg)",
                     transition: "transform 200ms",
                     flexShrink: 0,
@@ -245,7 +245,7 @@ export default function ContactForm({ models }: Props) {
                     className="flex items-center gap-2 px-3 py-2.5"
                     style={{ borderBottom: "1px solid rgba(0,0,0,0.07)" }}
                   >
-                    <Search size={14} style={{ color: "rgba(0,0,0,0.35)", flexShrink: 0 }} />
+                    <Search size={14} style={{ color: "rgba(0,0,0,0.6)", flexShrink: 0 }} />
                     <input
                       type="text"
                       value={modelSearch}
@@ -258,7 +258,7 @@ export default function ContactForm({ models }: Props) {
                   </div>
                   <div className="overflow-y-auto" style={{ maxHeight: 220 }}>
                     {filteredModels.length === 0 ? (
-                      <p className="px-4 py-3 text-sm text-center" style={{ color: "rgba(0,0,0,0.4)" }}>
+                      <p className="px-4 py-3 text-sm text-center" style={{ color: "rgba(0,0,0,0.6)" }}>
                         לא נמצאו דגמים
                       </p>
                     ) : (
@@ -331,7 +331,7 @@ export default function ContactForm({ models }: Props) {
         {/* Email (optional) */}
         <div>
           <label htmlFor="contact-email" className="block text-sm font-semibold mb-2" style={{ color: "#1d1d1f" }}>
-            אימייל <span className="font-normal text-xs" style={{ color: "rgba(0,0,0,0.4)" }}>(אופציונלי)</span>
+            אימייל <span className="font-normal text-xs" style={{ color: "rgba(0,0,0,0.6)" }}>(אופציונלי)</span>
           </label>
           <input
             id="contact-email"
@@ -351,7 +351,7 @@ export default function ContactForm({ models }: Props) {
         {/* Message */}
         <div>
           <label htmlFor="contact-message" className="block text-sm font-semibold mb-2" style={{ color: "#1d1d1f" }}>
-            הודעה <span className="font-normal text-xs" style={{ color: "rgba(0,0,0,0.4)" }}>(לא חובה)</span>
+            הודעה <span className="font-normal text-xs" style={{ color: "rgba(0,0,0,0.6)" }}>(לא חובה)</span>
           </label>
           <textarea
             id="contact-message"
@@ -416,7 +416,7 @@ function BusinessInfo() {
               <MapPin size={16} style={{ color: "#1d1d1f" }} />
             </div>
             <div>
-              <p className="text-xs font-medium mb-0.5" style={{ color: "rgba(0,0,0,0.45)" }}>כתובת</p>
+              <p className="text-xs font-medium mb-0.5" style={{ color: "rgba(0,0,0,0.6)" }}>כתובת</p>
               <p className="text-sm font-medium" style={{ color: "#1d1d1f" }}>
                 מעגל השלום 3, ראשון לציון
               </p>
@@ -427,7 +427,7 @@ function BusinessInfo() {
               <Phone size={16} style={{ color: "#1d1d1f" }} />
             </div>
             <div>
-              <p className="text-xs font-medium mb-0.5" style={{ color: "rgba(0,0,0,0.45)" }}>טלפון</p>
+              <p className="text-xs font-medium mb-0.5" style={{ color: "rgba(0,0,0,0.6)" }}>טלפון</p>
               <a href="tel:+972534832573" className="text-sm font-medium hover:text-[#0071e3] transition-colors" style={{ color: "#1d1d1f" }} dir="ltr">
                 053-483-2573
               </a>
@@ -438,7 +438,7 @@ function BusinessInfo() {
               <Mail size={16} style={{ color: "#1d1d1f" }} />
             </div>
             <div>
-              <p className="text-xs font-medium mb-0.5" style={{ color: "rgba(0,0,0,0.45)" }}>אימייל</p>
+              <p className="text-xs font-medium mb-0.5" style={{ color: "rgba(0,0,0,0.6)" }}>אימייל</p>
               <a href="mailto:info@ad-phones.co.il" className="text-sm font-medium hover:text-[#0071e3] transition-colors" style={{ color: "#1d1d1f" }} dir="ltr">
                 info@ad-phones.co.il
               </a>
@@ -449,7 +449,7 @@ function BusinessInfo() {
               <Clock size={16} style={{ color: "#1d1d1f" }} />
             </div>
             <div>
-              <p className="text-xs font-medium mb-0.5" style={{ color: "rgba(0,0,0,0.45)" }}>שעות פעילות</p>
+              <p className="text-xs font-medium mb-0.5" style={{ color: "rgba(0,0,0,0.6)" }}>שעות פעילות</p>
               <p className="text-sm font-medium leading-relaxed" style={{ color: "#1d1d1f" }}>
                 א&apos;–ה&apos; 09:00–19:00<br />ו&apos; 09:00–14:00
               </p>
@@ -471,7 +471,7 @@ function BusinessInfo() {
         </div>
         <div>
           <p className="text-sm font-semibold" style={{ color: "#1d1d1f" }}>WhatsApp</p>
-          <p className="text-xs" style={{ color: "rgba(0,0,0,0.45)" }}>זמין לשאלות מהירות</p>
+          <p className="text-xs" style={{ color: "rgba(0,0,0,0.6)" }}>זמין לשאלות מהירות</p>
         </div>
       </a>
 

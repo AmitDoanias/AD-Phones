@@ -26,7 +26,7 @@ export default function Header() {
                   ? window.history.back()
                   : (window.location.href = "/")
               }
-              className="md:hidden p-2 -mr-1 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
+              className="md:hidden p-2.5 -mr-1 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
               aria-label="חזרה"
             >
               <ChevronRight size={24} strokeWidth={2.2} />
@@ -65,7 +65,7 @@ export default function Header() {
         <div className="hidden md:flex items-center gap-3">
           <Link
             href="/cart"
-            className="relative p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
+            className="relative p-2.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
             aria-label="סל קניות"
           >
             <ShoppingCart size={20} />
@@ -90,7 +90,7 @@ export default function Header() {
         <div className="md:hidden flex items-center gap-1">
           <Link
             href="/cart"
-            className="relative p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
+            className="relative p-2.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
             aria-label="סל קניות"
           >
             <ShoppingCart size={20} />
@@ -103,7 +103,7 @@ export default function Header() {
           </Link>
           <button
             onClick={() => setOpen(!open)}
-            className="p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
+            className="p-2.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
             aria-label="תפריט"
           >
             {open ? <X size={22} /> : <Menu size={22} />}

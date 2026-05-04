@@ -190,7 +190,7 @@ export default async function RepairServicePage({ params }: Props) {
               className="bg-white rounded-[16px] p-10 text-center"
               style={{ boxShadow: "rgba(0,0,0,0.06) 0px 2px 10px 0px" }}
             >
-              <p style={{ color: "rgba(0,0,0,0.48)" }}>
+              <p style={{ color: "rgba(0,0,0,0.6)" }}>
                 אין כרגע דגמים זמינים לתיקון זה
               </p>
               <Link

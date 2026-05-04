@@ -201,12 +201,12 @@ export default async function HomePage() {
               >
                 מה הלקוחות אומרים
               </h2>
-              <p className="text-sm" style={{ color: "rgba(0,0,0,0.5)" }}>
+              <p className="text-sm" style={{ color: "rgba(0,0,0,0.6)" }}>
                 ביקורות אמיתיות מלקוחות מרוצים
               </p>
             </div>
             <ElfsightReviews />
-            <p className="text-center text-xs mt-6" style={{ color: "rgba(0,0,0,0.35)" }}>
+            <p className="text-center text-xs mt-6" style={{ color: "rgba(0,0,0,0.6)" }}>
               ביקורות מ-Google Reviews
             </p>
           </div>
@@ -280,7 +280,7 @@ export default async function HomePage() {
                       </div>
                       <p
                         className="text-xs leading-snug"
-                        style={{ color: "rgba(0,0,0,0.55)", letterSpacing: "0.196px" }}
+                        style={{ color: "rgba(0,0,0,0.6)", letterSpacing: "0.196px" }}
                       >
                         {stat.label}
                       </p>
@@ -339,13 +339,13 @@ export default async function HomePage() {
             </h2>
             <p
               className="text-center text-sm mb-4"
-              style={{ color: "rgba(0,0,0,0.45)", letterSpacing: "-0.224px" }}
+              style={{ color: "rgba(0,0,0,0.6)", letterSpacing: "-0.224px" }}
             >
               לקוחות עסקיים ותיקים שנותנים בנו אמון
             </p>
             <p
               className="text-center text-sm leading-relaxed mb-10 mx-auto"
-              style={{ color: "rgba(0,0,0,0.55)", maxWidth: 540, letterSpacing: "-0.224px" }}
+              style={{ color: "rgba(0,0,0,0.6)", maxWidth: 540, letterSpacing: "-0.224px" }}
             >
               אנו מתמחים ביצירת פתרונות תיקון מותאמים אישית הן לעסקים קטנים והן לתאגידים גדולים. כל היבט בשירות שלנו מעוצב בקפידה כדי להתאים לדרישות הייחודיות של הארגון שלכם. צרו איתנו קשר כדי לגלות איך אנחנו יכולים לתת מענה לצרכים הספציפיים שלכם.
             </p>
@@ -394,7 +394,7 @@ export default async function HomePage() {
                   >
                     מהבלוג שלנו
                   </h2>
-                  <p className="text-sm" style={{ color: "rgba(0,0,0,0.5)" }}>
+                  <p className="text-sm" style={{ color: "rgba(0,0,0,0.6)" }}>
                     מדריכים וטיפים לתחזוקת הסלולר שלך
                   </p>
                 </div>
@@ -440,14 +440,14 @@ export default async function HomePage() {
                         {post.excerpt && (
                           <p
                             className="text-xs leading-relaxed mb-3 line-clamp-2"
-                            style={{ color: "rgba(0,0,0,0.55)" }}
+                            style={{ color: "rgba(0,0,0,0.6)" }}
                           >
                             {post.excerpt}
                           </p>
                         )}
                         <div
                           className="flex items-center gap-1.5 text-xs"
-                          style={{ color: "rgba(0,0,0,0.35)" }}
+                          style={{ color: "rgba(0,0,0,0.6)" }}
                         >
                           <CalendarDays size={11} />
                           {post.published_at &&

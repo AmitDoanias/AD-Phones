@@ -18,8 +18,8 @@ export default function CookieBanner() {
   }, []);
 
   useEffect(() => {
-    const handler = () => setView(null);
-    window.addEventListener("cookie-consent-open-preferences", () => setView("preferences"));
+    const handler = () => setView("preferences");
+    window.addEventListener("cookie-consent-open-preferences", handler);
     return () => window.removeEventListener("cookie-consent-open-preferences", handler);
   }, []);
 
@@ -127,7 +127,7 @@ export default function CookieBanner() {
                   onClick={() => setView("banner")}
                   aria-label="סגור"
                   className="p-1 rounded hover:bg-black/5"
-                  style={{ color: "rgba(0,0,0,0.5)" }}
+                  style={{ color: "rgba(0,0,0,0.6)" }}
                 >
                   <X size={18} />
                 </button>
@@ -176,7 +176,7 @@ export default function CookieBanner() {
                 </button>
               </div>
 
-              <p className="text-xs mt-3 text-center" style={{ color: "rgba(0,0,0,0.4)" }}>
+              <p className="text-xs mt-3 text-center" style={{ color: "rgba(0,0,0,0.6)" }}>
                 לפרטים נוספים -{" "}
                 <Link href="/cookies" className="underline" style={{ color: "#0071e3" }}>
                   מדיניות עוגיות
