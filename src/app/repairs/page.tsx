@@ -6,7 +6,6 @@ import WhatsAppFab from "@/components/layout/WhatsAppFab";
 import AnimatedCard from "@/components/repairs/AnimatedCard";
 import BrandLogo from "@/components/ui/BrandLogo";
 import JsonLd from "@/components/seo/JsonLd";
-import { createClient } from "@/lib/supabase/server";
 import { localBusinessSchema } from "@/lib/seo";
 import { ChevronLeft } from "lucide-react";
 
@@ -19,14 +18,16 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://ad-phones.co.il/repairs" },
 };
 
+// Routes users to the dedicated landing pages with line-specific FAQs and SEO.
+// We don't iterate `brands` from the DB because Apple is a single brand there
+// (slug=apple) and we want iPhone + iPad to be separate landing entries.
+const DEVICE_LINES = [
+  { name: "iPhone", logoSlug: "apple", href: "/repairs/iphone" },
+  { name: "iPad", logoSlug: "apple", href: "/repairs/ipad" },
+  { name: "Samsung", logoSlug: "samsung", href: "/repairs/samsung" },
+] as const;
+
 export default async function RepairsIndexPage() {
-  const supabase = await createClient();
-
-  const { data: brands } = await supabase
-    .from("brands")
-    .select("id, name, slug, icon_url")
-    .order("sort_order");
-
   return (
     <>
       <Header />
@@ -49,39 +50,33 @@ export default async function RepairsIndexPage() {
 
         {/* Brand grid */}
         <section className="max-w-5xl mx-auto px-4 py-14">
-          {!brands || brands.length === 0 ? (
-            <p className="text-center text-[rgba(0,0,0,0.6)] py-20">
-              אין מותגים זמינים כרגע
-            </p>
-          ) : (
-            <div className="flex flex-wrap justify-center gap-5">
-              {brands.map((brand, i) => (
-                <AnimatedCard key={brand.id} delay={i * 80} className="w-full sm:w-[300px]">
-                  <Link
-                    href={`/repairs/${brand.slug}`}
-                    className="group block bg-white rounded-[8px] p-8 text-center transition-shadow hover:shadow-[rgba(0,0,0,0.22)_3px_5px_30px_0px] focus-visible:outline-2 focus-visible:outline-[#0071e3]"
-                    style={{
-                      boxShadow: "rgba(0,0,0,0.10) 0px 2px 12px 0px",
-                    }}
+          <div className="flex flex-wrap justify-center gap-5">
+            {DEVICE_LINES.map((line, i) => (
+              <AnimatedCard key={line.name} delay={i * 80} className="w-full sm:w-[300px]">
+                <Link
+                  href={line.href}
+                  className="group block bg-white rounded-[8px] p-8 text-center transition-shadow hover:shadow-[rgba(0,0,0,0.22)_3px_5px_30px_0px] focus-visible:outline-2 focus-visible:outline-[#0071e3]"
+                  style={{
+                    boxShadow: "rgba(0,0,0,0.10) 0px 2px 12px 0px",
+                  }}
+                >
+                  <div className="mb-4 flex justify-center">
+                    <BrandLogo slug={line.logoSlug} name={line.name} size="lg" />
+                  </div>
+                  <h2
+                    className="text-xl font-bold text-[#1d1d1f] mb-2"
+                    style={{ letterSpacing: "0.196px", lineHeight: 1.14 }}
                   >
-                    <div className="mb-4 flex justify-center">
-                      <BrandLogo slug={brand.slug} name={brand.name} size="lg" />
-                    </div>
-                    <h2
-                      className="text-xl font-bold text-[#1d1d1f] mb-2"
-                      style={{ letterSpacing: "0.196px", lineHeight: 1.14 }}
-                    >
-                      {brand.name}
-                    </h2>
-                    <span className="inline-flex items-center gap-1 text-sm text-[#0066cc] group-hover:underline">
-                      ראה דגמים ומחירים
-                      <ChevronLeft size={14} />
-                    </span>
-                  </Link>
-                </AnimatedCard>
-              ))}
-            </div>
-          )}
+                    {line.name}
+                  </h2>
+                  <span className="inline-flex items-center gap-1 text-sm text-[#0066cc] group-hover:underline">
+                    ראה דגמים ומחירים
+                    <ChevronLeft size={14} />
+                  </span>
+                </Link>
+              </AnimatedCard>
+            ))}
+          </div>
         </section>
 
         {/* Trust strip */}

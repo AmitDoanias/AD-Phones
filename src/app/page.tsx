@@ -49,11 +49,6 @@ const SYMBOLS = [
 export default async function HomePage() {
   const supabase = await createClient();
 
-  const { data: brands } = await supabase
-    .from("brands")
-    .select("id, name, slug, icon_url")
-    .order("sort_order");
-
   const { data: blogPosts } = await supabase
     .from("blog_posts")
     .select("title, slug, excerpt, cover_image_url, published_at")
@@ -540,40 +535,42 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* ── 8. BRAND SELECTOR (brands strip before map) ──────────── */}
-        {brands && brands.length > 0 && (
-          <section
-            className="bg-[#f5f5f7] py-12 px-4"
-            style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}
-          >
-            <div className="max-w-5xl mx-auto">
-              <p
-                className="text-center text-base md:text-lg font-semibold mb-8"
-                style={{ color: "#1d1d1f", letterSpacing: "0.196px" }}
-              >
-                לאיזה מכשיר צריך תיקון?
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                {brands.map((brand, i) => (
-                  <AnimatedCard key={brand.id} delay={i * 70}>
-                    <Link
-                      href={`/repairs/${brand.slug}`}
-                      className="group block bg-white rounded-[8px] p-5 text-center w-36 transition-shadow hover:shadow-[rgba(0,0,0,0.22)_3px_5px_30px_0px]"
-                      style={{ boxShadow: "rgba(0,0,0,0.10) 0px 2px 12px 0px" }}
-                    >
-                      <div className="mb-3 flex justify-center">
-                        <BrandLogo slug={brand.slug} name={brand.name} size="md" />
-                      </div>
-                      <p className="text-sm font-semibold" style={{ color: "#1d1d1f", letterSpacing: "0.196px" }}>
-                        {brand.name}
-                      </p>
-                    </Link>
-                  </AnimatedCard>
-                ))}
-              </div>
+        {/* ── 8. BRAND SELECTOR (line-based, routes to landing pages with FAQs) ──── */}
+        <section
+          className="bg-[#f5f5f7] py-12 px-4"
+          style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}
+        >
+          <div className="max-w-5xl mx-auto">
+            <p
+              className="text-center text-base md:text-lg font-semibold mb-8"
+              style={{ color: "#1d1d1f", letterSpacing: "0.196px" }}
+            >
+              לאיזה מכשיר צריך תיקון?
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              {[
+                { name: "iPhone", logoSlug: "apple", href: "/repairs/iphone" },
+                { name: "iPad", logoSlug: "apple", href: "/repairs/ipad" },
+                { name: "Samsung", logoSlug: "samsung", href: "/repairs/samsung" },
+              ].map((line, i) => (
+                <AnimatedCard key={line.name} delay={i * 70}>
+                  <Link
+                    href={line.href}
+                    className="group block bg-white rounded-[8px] p-5 text-center w-36 transition-shadow hover:shadow-[rgba(0,0,0,0.22)_3px_5px_30px_0px]"
+                    style={{ boxShadow: "rgba(0,0,0,0.10) 0px 2px 12px 0px" }}
+                  >
+                    <div className="mb-3 flex justify-center">
+                      <BrandLogo slug={line.logoSlug} name={line.name} size="md" />
+                    </div>
+                    <p className="text-sm font-semibold" style={{ color: "#1d1d1f", letterSpacing: "0.196px" }}>
+                      {line.name}
+                    </p>
+                  </Link>
+                </AnimatedCard>
+              ))}
             </div>
-          </section>
-        )}
+          </div>
+        </section>
 
         {/* ── 9. MAP + CONTACT ─────────────────────────────────────── */}
         <section className="bg-[#1d1d1f] py-16 px-4">
