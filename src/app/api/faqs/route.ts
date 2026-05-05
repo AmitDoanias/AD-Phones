@@ -48,12 +48,26 @@ export async function POST(req: NextRequest) {
 
     if (error) {
       console.error("faq create error:", error);
-      return NextResponse.json({ error: "שגיאה ביצירת השאלה" }, { status: 500 });
+      // Surface the real Supabase error to the admin UI so we can see what went wrong.
+      // (This route is auth-gated, so leaking error details is safe.)
+      return NextResponse.json(
+        {
+          error: `שגיאה ביצירת השאלה: ${error.message}`,
+          code: error.code,
+          details: error.details,
+          hint: error.hint,
+        },
+        { status: 500 }
+      );
     }
 
     revalidatePath(pathForLine(body.device_line as DeviceLine));
     return NextResponse.json(data);
-  } catch {
-    return NextResponse.json({ error: "שגיאת שרת פנימית" }, { status: 500 });
+  } catch (e) {
+    console.error("faq create exception:", e);
+    return NextResponse.json(
+      { error: e instanceof Error ? `שגיאת שרת: ${e.message}` : "שגיאת שרת פנימית" },
+      { status: 500 }
+    );
   }
 }
