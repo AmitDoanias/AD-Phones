@@ -104,24 +104,25 @@ export default async function HomePage() {
     };
   };
 
+  // Pass full lists; the component slices to 6 by default and shows all when searching.
   const deviceTabs: DeviceTab[] = [
     {
       slug: "iphone",
       label: "iPhone",
       brandSlug: appleBrandRes.data?.slug ?? "apple",
-      models: appleModels.filter((m) => isIPhoneModel(m.name)).slice(0, 6).map(toDeviceModel),
+      models: appleModels.filter((m) => isIPhoneModel(m.name)).map(toDeviceModel),
     },
     {
       slug: "ipad",
       label: "iPad",
       brandSlug: appleBrandRes.data?.slug ?? "apple",
-      models: appleModels.filter((m) => isIPadModel(m.name)).slice(0, 6).map(toDeviceModel),
+      models: appleModels.filter((m) => isIPadModel(m.name)).map(toDeviceModel),
     },
     {
       slug: "samsung",
       label: "Samsung",
       brandSlug: samsungBrandRes.data?.slug ?? "samsung",
-      models: samsungModels.slice(0, 6).map(toDeviceModel),
+      models: samsungModels.map(toDeviceModel),
     },
   ];
 
