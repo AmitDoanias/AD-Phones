@@ -56,7 +56,6 @@ export default function AnimatedCard({
         transform: visible ? "translateY(0)" : "translateY(24px)",
         transition:
           "opacity 600ms cubic-bezier(0.32, 0.72, 0, 1), transform 600ms cubic-bezier(0.32, 0.72, 0, 1)",
-        willChange: visible ? "auto" : "transform, opacity",
       }}
       className={className}
     >
