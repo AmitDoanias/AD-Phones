@@ -10,8 +10,9 @@ import HeroCarousel from "@/components/home/HeroCarousel";
 import ElfsightReviews from "@/components/home/ElfsightReviews";
 import CountUpStat from "@/components/home/CountUpStat";
 import FaqAccordion from "@/components/home/FaqAccordion";
-import PopularRepairs3D from "@/components/home/PopularRepairs3D";
+import DeviceFirstRepairs, { type DeviceTab } from "@/components/home/DeviceFirstRepairs";
 import { createClient } from "@/lib/supabase/server";
+import { isIPhoneModel, isIPadModel } from "@/lib/utils";
 import { localBusinessSchema, faqSchema } from "@/lib/seo";
 import { FAQS } from "@/constants/faqs";
 import { WHATSAPP_NUMBER } from "@/constants";
@@ -48,11 +49,6 @@ const SYMBOLS = [
 export default async function HomePage() {
   const supabase = await createClient();
 
-  const { data: brands } = await supabase
-    .from("brands")
-    .select("id, name, slug, icon_url")
-    .order("sort_order");
-
   const { data: blogPosts } = await supabase
     .from("blog_posts")
     .select("title, slug, excerpt, cover_image_url, published_at")
@@ -60,20 +56,70 @@ export default async function HomePage() {
     .order("published_at", { ascending: false })
     .limit(3);
 
-  // Fetch repair types with per-model pricing for Popular Repairs section
-  const { data: repairTypesRaw } = await supabase
-    .from("repair_types")
-    .select(
-      `id, name, slug, description, icon_url,
-       model_repairs!inner(id, price, duration_min,
-         models!inner(id, name, slug,
-           brands!inner(name, slug)
-         )
-       )`
-    )
-    .order("name");
+  // Device-first selector data: Apple (split iPhone/iPad client-side) + Samsung
+  const [appleBrandRes, samsungBrandRes] = await Promise.all([
+    supabase.from("brands").select("id, slug").eq("slug", "apple").single(),
+    supabase.from("brands").select("id, slug").eq("slug", "samsung").single(),
+  ]);
 
-  const repairTypes = (repairTypesRaw ?? []).slice(0, 6);
+  type ModelRow = {
+    id: string;
+    name: string;
+    slug: string;
+    image_url: string | null;
+    alt_text: string | null;
+    model_repairs: { price: number }[] | null;
+  };
+
+  const fetchModels = async (brandId: string | undefined): Promise<ModelRow[]> => {
+    if (!brandId) return [];
+    const { data } = await supabase
+      .from("models")
+      .select("id, name, slug, image_url, alt_text, model_repairs(price)")
+      .eq("brand_id", brandId)
+      .eq("is_active", true)
+      .order("sort_order");
+    return (data as ModelRow[] | null) ?? [];
+  };
+
+  const [appleModels, samsungModels] = await Promise.all([
+    fetchModels(appleBrandRes.data?.id),
+    fetchModels(samsungBrandRes.data?.id),
+  ]);
+
+  const toDeviceModel = (m: ModelRow) => {
+    const prices = (m.model_repairs ?? []).map((r) => r.price).filter((p) => typeof p === "number");
+    return {
+      id: m.id,
+      name: m.name,
+      slug: m.slug,
+      image_url: m.image_url,
+      alt_text: m.alt_text,
+      minPrice: prices.length > 0 ? Math.min(...prices) : null,
+    };
+  };
+
+  // Pass full lists; the component slices to 6 by default and shows all when searching.
+  const deviceTabs: DeviceTab[] = [
+    {
+      slug: "iphone",
+      label: "iPhone",
+      brandSlug: appleBrandRes.data?.slug ?? "apple",
+      models: appleModels.filter((m) => isIPhoneModel(m.name)).map(toDeviceModel),
+    },
+    {
+      slug: "ipad",
+      label: "iPad",
+      brandSlug: appleBrandRes.data?.slug ?? "apple",
+      models: appleModels.filter((m) => isIPadModel(m.name)).map(toDeviceModel),
+    },
+    {
+      slug: "samsung",
+      label: "Samsung",
+      brandSlug: samsungBrandRes.data?.slug ?? "samsung",
+      models: samsungModels.map(toDeviceModel),
+    },
+  ];
 
   const waMessage = encodeURIComponent("היי, אשמח לשאול לגבי תיקון הטלפון שלי");
 
@@ -374,8 +420,8 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* ── 5. POPULAR REPAIRS (3D) ──────────────────────────────── */}
-        <PopularRepairs3D repairTypes={repairTypes as any} />
+        {/* ── 5. DEVICE-FIRST REPAIRS ──────────────────────────────── */}
+        <DeviceFirstRepairs tabs={deviceTabs} />
 
         {/* ── 6. BLOG ──────────────────────────────────────────────── */}
         {blogPosts && blogPosts.length > 0 && (
@@ -489,40 +535,42 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* ── 8. BRAND SELECTOR (brands strip before map) ──────────── */}
-        {brands && brands.length > 0 && (
-          <section
-            className="bg-[#f5f5f7] py-12 px-4"
-            style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}
-          >
-            <div className="max-w-5xl mx-auto">
-              <p
-                className="text-center text-base md:text-lg font-semibold mb-8"
-                style={{ color: "#1d1d1f", letterSpacing: "0.196px" }}
-              >
-                לאיזה מכשיר צריך תיקון?
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                {brands.map((brand, i) => (
-                  <AnimatedCard key={brand.id} delay={i * 70}>
-                    <Link
-                      href={`/repairs/${brand.slug}`}
-                      className="group block bg-white rounded-[8px] p-5 text-center w-36 transition-shadow hover:shadow-[rgba(0,0,0,0.22)_3px_5px_30px_0px]"
-                      style={{ boxShadow: "rgba(0,0,0,0.10) 0px 2px 12px 0px" }}
-                    >
-                      <div className="mb-3 flex justify-center">
-                        <BrandLogo slug={brand.slug} name={brand.name} size="md" />
-                      </div>
-                      <p className="text-sm font-semibold" style={{ color: "#1d1d1f", letterSpacing: "0.196px" }}>
-                        {brand.name}
-                      </p>
-                    </Link>
-                  </AnimatedCard>
-                ))}
-              </div>
+        {/* ── 8. BRAND SELECTOR (line-based, routes to landing pages with FAQs) ──── */}
+        <section
+          className="bg-[#f5f5f7] py-12 px-4"
+          style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}
+        >
+          <div className="max-w-5xl mx-auto">
+            <p
+              className="text-center text-base md:text-lg font-semibold mb-8"
+              style={{ color: "#1d1d1f", letterSpacing: "0.196px" }}
+            >
+              לאיזה מכשיר צריך תיקון?
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              {[
+                { name: "iPhone", logoSlug: "apple", href: "/repairs/iphone" },
+                { name: "iPad", logoSlug: "apple", href: "/repairs/ipad" },
+                { name: "Samsung", logoSlug: "samsung", href: "/repairs/samsung" },
+              ].map((line, i) => (
+                <AnimatedCard key={line.name} delay={i * 70}>
+                  <Link
+                    href={line.href}
+                    className="group block bg-white rounded-[8px] p-5 text-center w-36 transition-shadow hover:shadow-[rgba(0,0,0,0.22)_3px_5px_30px_0px]"
+                    style={{ boxShadow: "rgba(0,0,0,0.10) 0px 2px 12px 0px" }}
+                  >
+                    <div className="mb-3 flex justify-center">
+                      <BrandLogo slug={line.logoSlug} name={line.name} size="md" />
+                    </div>
+                    <p className="text-sm font-semibold" style={{ color: "#1d1d1f", letterSpacing: "0.196px" }}>
+                      {line.name}
+                    </p>
+                  </Link>
+                </AnimatedCard>
+              ))}
             </div>
-          </section>
-        )}
+          </div>
+        </section>
 
         {/* ── 9. MAP + CONTACT ─────────────────────────────────────── */}
         <section className="bg-[#1d1d1f] py-16 px-4">
