@@ -132,7 +132,7 @@ export default function DeviceFirstRepairs({ tabs }: Props) {
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder='חפש דגם — לדוגמה "iPhone 14" או "אייפון"'
+            placeholder="חפש דגם..."
             aria-label="חיפוש מכשיר"
             className="w-full pr-11 pl-11 py-3 rounded-[12px] bg-white text-sm focus:outline-2 focus:outline-[#0071e3] transition-shadow"
             style={{
