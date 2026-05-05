@@ -4,6 +4,7 @@ import "./globals.css";
 import { CartProvider } from "@/components/cart/CartProvider";
 import CookieBanner from "@/components/legal/CookieBanner";
 import AccessibilityToolbar from "@/components/legal/AccessibilityToolbar";
+import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 
 const heebo = Heebo({
   variable: "--font-heebo",
@@ -69,6 +70,7 @@ export default function RootLayout({
         <CartProvider>{children}</CartProvider>
         <CookieBanner />
         <AccessibilityToolbar />
+        <GoogleAnalytics />
       </body>
     </html>
   );
