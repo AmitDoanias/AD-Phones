@@ -1,6 +1,18 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy-init Resend so module load doesn't crash if RESEND_API_KEY is missing
+// (e.g., a preview deploy on a branch that hasn't been added to env scope).
+// Senders fail gracefully at runtime instead — caught by callers' try/catch.
+let resendClient: Resend | null = null;
+function getResend(): Resend {
+  if (!resendClient) {
+    const key = process.env.RESEND_API_KEY;
+    if (!key) throw new Error("RESEND_API_KEY is not set");
+    resendClient = new Resend(key);
+  }
+  return resendClient;
+}
+
 const FROM = process.env.CONTACT_EMAIL_FROM || "onboarding@resend.dev";
 const TO = process.env.CONTACT_EMAIL_TO || "info@ad-phones.co.il";
 const SITE_URL = "https://ad-phones.co.il";
@@ -68,7 +80,7 @@ export async function sendContactEmail(data: {
 </html>`;
 
   try {
-    const { error } = await resend.emails.send({
+    const { error } = await getResend().emails.send({
       from: FROM,
       to: TO,
       replyTo: undefined,
@@ -133,7 +145,7 @@ export async function sendBookingEmail(data: {
 </html>`;
 
   try {
-    const { error } = await resend.emails.send({
+    const { error } = await getResend().emails.send({
       from: FROM,
       to: TO,
       subject,
@@ -181,7 +193,7 @@ export async function sendCustomerContactConfirmation(data: {
 </html>`;
 
   try {
-    const { error } = await resend.emails.send({
+    const { error } = await getResend().emails.send({
       from: FROM,
       to: data.customerEmail,
       subject: "תודה על פנייתך - איי די פון",
@@ -262,7 +274,7 @@ export async function sendCustomerBookingConfirmation(data: {
 </html>`;
 
   try {
-    const { error } = await resend.emails.send({
+    const { error } = await getResend().emails.send({
       from: FROM,
       to: data.customerEmail,
       subject: `אישור הזמנה - ₪${data.total.toLocaleString("he-IL")} - איי די פון`,
