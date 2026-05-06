@@ -10,8 +10,12 @@ import {
   Users,
   Calendar,
   LogOut,
-  Settings,
   HelpCircle,
+  ShoppingBag,
+  Package,
+  FolderTree,
+  ShoppingCart,
+  Truck,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
@@ -24,6 +28,13 @@ const NAV = [
   { href: "/dashboard/blog",     label: "בלוג",           icon: BookOpen },
   { href: "/dashboard/faqs",     label: "שאלות נפוצות",   icon: HelpCircle },
   { href: "/dashboard/calendar", label: "לוח זמנים",     icon: Calendar },
+];
+
+const SHOP_NAV = [
+  { href: "/dashboard/shop/products",   label: "מוצרים",       icon: Package },
+  { href: "/dashboard/shop/categories", label: "קטגוריות",     icon: FolderTree },
+  { href: "/dashboard/shop/orders",     label: "הזמנות חנות",  icon: ShoppingCart },
+  { href: "/dashboard/shop/shipping",   label: "שיטות משלוח",  icon: Truck },
 ];
 
 export default function Sidebar() {
@@ -78,6 +89,35 @@ export default function Sidebar() {
             </Link>
           );
         })}
+
+        {/* Shop section */}
+        <div className="mt-4 pt-4 border-t border-white/[0.05]">
+          <p className="px-3 mb-2 text-[9px] font-bold uppercase tracking-[0.14em] text-slate-600 flex items-center gap-1.5">
+            <ShoppingBag size={11} className="text-slate-600" />
+            חנות
+          </p>
+          {SHOP_NAV.map(({ href, label, icon: Icon }) => {
+            const active = pathname.startsWith(href);
+            return (
+              <Link
+                key={href}
+                href={href}
+                className={cn(
+                  "flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] font-medium transition-all duration-150",
+                  active
+                    ? "bg-white/[0.08] text-white"
+                    : "text-slate-400 hover:bg-white/[0.04] hover:text-slate-200"
+                )}
+              >
+                <Icon
+                  size={16}
+                  className={cn(active ? "text-[#60a5fa]" : "text-slate-600")}
+                />
+                {label}
+              </Link>
+            );
+          })}
+        </div>
       </nav>
 
       {/* Footer */}

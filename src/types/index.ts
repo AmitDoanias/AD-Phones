@@ -179,3 +179,20 @@ export interface LineFaq {
   created_at: string;
   updated_at: string;
 }
+
+// ─── Shop ────────────────────────────────────────────────────────────────────
+
+export interface ShopCategory {
+  id: string;
+  slug: string;
+  name: string;
+  parent_id: string | null;
+  description: string | null;
+  image_url: string | null;
+  sort_order: number;
+  is_active: boolean;
+  seo_title: string | null;
+  seo_description: string | null;
+  created_at: string;
+  updated_at: string;
+}
