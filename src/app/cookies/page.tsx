@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "Cookies | איי די פון",
   description:
     "מדיניות עוגיות (Cookies) של איי די פון - באילו עוגיות אנו משתמשים, למה, ואיך תוכל לנהל אותן.",
-  alternates: { canonical: "https://ad-phones.co.il/cookies" },
+  alternates: { canonical: "https://www.ad-phones.co.il/cookies" },
   robots: { index: true, follow: true },
 };
 
@@ -89,7 +89,7 @@ export default function CookiesPolicyPage() {
             }}
           >
             <p className="mb-6">
-              מסמך זה (להלן: <strong>&quot;מדיניות העוגיות&quot;</strong>) מהווה חלק בלתי נפרד מ<a href="/privacy" className="text-[#0071e3] hover:underline">מדיניות הפרטיות</a> של <strong style={{ color: "#1d1d1f" }}>איי די פון</strong> (להלן: <strong>&quot;החברה&quot;</strong>) ומפרט את אופן השימוש בעוגיות (Cookies) ובטכנולוגיות מעקב דומות באתר <a href="https://ad-phones.co.il" className="text-[#0071e3] hover:underline">ad-phones.co.il</a> (להלן: <strong>&quot;האתר&quot;</strong>).
+              מסמך זה (להלן: <strong>&quot;מדיניות העוגיות&quot;</strong>) מהווה חלק בלתי נפרד מ<a href="/privacy" className="text-[#0071e3] hover:underline">מדיניות הפרטיות</a> של <strong style={{ color: "#1d1d1f" }}>איי די פון</strong> (להלן: <strong>&quot;החברה&quot;</strong>) ומפרט את אופן השימוש בעוגיות (Cookies) ובטכנולוגיות מעקב דומות באתר <a href="https://www.ad-phones.co.il" className="text-[#0071e3] hover:underline">ad-phones.co.il</a> (להלן: <strong>&quot;האתר&quot;</strong>).
             </p>
 
             <h2 className="text-xl md:text-2xl font-bold mt-10 mb-4" style={{ color: "#1d1d1f" }}>

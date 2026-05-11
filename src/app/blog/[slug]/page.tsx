@@ -11,7 +11,7 @@ import { createClient } from "@/lib/supabase/server";
 import { breadcrumbSchema } from "@/lib/seo";
 import type { Metadata } from "next";
 
-const SITE_URL = "https://ad-phones.co.il";
+const SITE_URL = "https://www.ad-phones.co.il";
 export const revalidate = 3600;
 
 function formatDate(d?: string | null) {

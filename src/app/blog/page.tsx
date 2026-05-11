@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "בלוג | איי די פון",
   description:
     "מדריכים, טיפים וחדשות מעולם תיקוני הסלולר - הצוות המקצועי של איי די פון משתף ידע מהמעבדה.",
-  alternates: { canonical: "https://ad-phones.co.il/blog" },
+  alternates: { canonical: "https://www.ad-phones.co.il/blog" },
   robots: { index: true, follow: true },
 };
 

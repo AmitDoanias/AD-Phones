@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   title: "תיקון סלולר | בחר מותג",
   description:
     "תיקון מקצועי לאייפון, אייפד וסמסונג בראשון לציון - בחר את המותג שלך וראה מחירים שקופים לכל תיקון.",
-  alternates: { canonical: "https://ad-phones.co.il/repairs" },
+  alternates: { canonical: "https://www.ad-phones.co.il/repairs" },
 };
 
 // Routes users to the dedicated landing pages with line-specific FAQs and SEO.

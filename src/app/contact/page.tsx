@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "יצירת קשר | A&D Phones",
   description:
     "צור קשר עם A&D Phones לתיקון מקצועי לאייפון, אייפד וסמסונג. בחר דגם, תאר את הבעיה ונחזור אליך מהר.",
-  alternates: { canonical: "https://ad-phones.co.il/contact" },
+  alternates: { canonical: "https://www.ad-phones.co.il/contact" },
 };
 
 export default async function ContactPage() {

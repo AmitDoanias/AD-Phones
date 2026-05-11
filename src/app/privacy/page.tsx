@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "מדיניות פרטיות | איי די פון",
   description:
     "מדיניות הפרטיות של איי די פון - איזה מידע אנחנו אוספים, למה, ואיך אנחנו שומרים על הפרטיות שלך.",
-  alternates: { canonical: "https://ad-phones.co.il/privacy" },
+  alternates: { canonical: "https://www.ad-phones.co.il/privacy" },
   robots: { index: true, follow: true },
 };
 
@@ -52,7 +52,7 @@ export default function PrivacyPolicyPage() {
             }}
           >
             <p className="mb-6">
-              מדיניות פרטיות זו (להלן: <strong>&quot;המדיניות&quot;</strong>) מתארת את האופן שבו <strong style={{ color: "#1d1d1f" }}>איי די פון</strong> (להלן: <strong>&quot;החברה&quot;, &quot;אנו&quot;</strong>) אוספת, משתמשת, מאחסנת ומגנה על מידע אישי הנאסף ממבקרים ומלקוחות באתר <a href="https://ad-phones.co.il" className="text-[#0071e3] hover:underline">ad-phones.co.il</a> (להלן: <strong>&quot;האתר&quot;</strong>) ובמסגרת השירותים הניתנים על ידי החברה.
+              מדיניות פרטיות זו (להלן: <strong>&quot;המדיניות&quot;</strong>) מתארת את האופן שבו <strong style={{ color: "#1d1d1f" }}>איי די פון</strong> (להלן: <strong>&quot;החברה&quot;, &quot;אנו&quot;</strong>) אוספת, משתמשת, מאחסנת ומגנה על מידע אישי הנאסף ממבקרים ומלקוחות באתר <a href="https://www.ad-phones.co.il" className="text-[#0071e3] hover:underline">ad-phones.co.il</a> (להלן: <strong>&quot;האתר&quot;</strong>) ובמסגרת השירותים הניתנים על ידי החברה.
             </p>
             <p className="mb-6">
               המדיניות נערכה בהתאם להוראות <strong>חוק הגנת הפרטיות, התשמ&quot;א-1981</strong> והתקנות שהותקנו מכוחו, וכן בהתאם לעקרונות מקובלים של רגולציות בינלאומיות (לרבות GDPR האירופי) ככל שיחולו. השימוש באתר ו/או בשירותי החברה מהווה הסכמה מצדך לתנאי המדיניות.

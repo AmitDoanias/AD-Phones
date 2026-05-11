@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import LineRepairPage from "@/components/repairs/LineRepairPage";
 import type { LineFaq } from "@/types";
 
-const SITE_URL = "https://ad-phones.co.il";
+const SITE_URL = "https://www.ad-phones.co.il";
 const CANONICAL = "/repairs/samsung";
 
 export const revalidate = 3600;

@@ -13,7 +13,7 @@ const heebo = Heebo({
   display: "swap",
 });
 
-const SITE_URL = "https://ad-phones.co.il";
+const SITE_URL = "https://www.ad-phones.co.il";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

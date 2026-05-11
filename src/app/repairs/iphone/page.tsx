@@ -4,7 +4,7 @@ import { isIPhoneModel } from "@/lib/utils";
 import LineRepairPage from "@/components/repairs/LineRepairPage";
 import type { LineFaq } from "@/types";
 
-const SITE_URL = "https://ad-phones.co.il";
+const SITE_URL = "https://www.ad-phones.co.il";
 const CANONICAL = "/repairs/iphone";
 
 export const revalidate = 3600;

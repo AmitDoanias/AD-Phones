@@ -94,7 +94,10 @@ export default function BlogPostBody({ content }: Props) {
           ),
           a: ({ href, children, ...rest }) => {
             const url = href ?? "#";
-            const isExternal = /^https?:\/\//.test(url) && !url.startsWith("https://ad-phones.co.il");
+            const isExternal =
+              /^https?:\/\//.test(url) &&
+              !url.startsWith("https://ad-phones.co.il") &&
+              !url.startsWith("https://www.ad-phones.co.il");
             if (isExternal) {
               return (
                 <a

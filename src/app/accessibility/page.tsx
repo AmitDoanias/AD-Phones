@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "הצהרת נגישות | איי די פון",
   description:
     "הצהרת נגישות של אתר איי די פון - התאמה לתקן ישראלי 5568 ו-WCAG 2.0 AA, אמצעי הנגשה והתחייבות לשיפור מתמיד.",
-  alternates: { canonical: "https://ad-phones.co.il/accessibility" },
+  alternates: { canonical: "https://www.ad-phones.co.il/accessibility" },
   robots: { index: true, follow: true },
 };
 

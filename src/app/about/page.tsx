@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "למה אנחנו | A&D Phones",
   description:
     "אבחון אמיתי ללא ניחושים. תיקון ברמת הרכיב, חלקים מקוריים, שקיפות מלאה. גלה למה A&D Phones שונים משאר המעבדות.",
-  alternates: { canonical: "https://ad-phones.co.il/about" },
+  alternates: { canonical: "https://www.ad-phones.co.il/about" },
 };
 
 const FEATURES = [

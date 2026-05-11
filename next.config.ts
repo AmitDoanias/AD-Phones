@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     serverActions: {
-      allowedOrigins: ["localhost:3000", "ad-phones.co.il"],
+      allowedOrigins: ["localhost:3000", "ad-phones.co.il", "www.ad-phones.co.il"],
     },
   },
 };

@@ -3,7 +3,7 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM = process.env.CONTACT_EMAIL_FROM || "onboarding@resend.dev";
 const TO = process.env.CONTACT_EMAIL_TO || "info@ad-phones.co.il";
-const SITE_URL = "https://ad-phones.co.il";
+const SITE_URL = "https://www.ad-phones.co.il";
 const BUSINESS_PHONE = "053-483-2573";
 const WHATSAPP_LINK = "https://wa.me/972534832573";
 
